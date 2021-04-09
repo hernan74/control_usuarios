@@ -1,5 +1,6 @@
-import 'package:control_usuarios/src/pages/login_page.dart';
 import 'package:flutter/material.dart';
+
+import 'package:control_usuarios/src/pages/ficha_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,7 +10,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Control usuarios',
-      home: LoginPage(),
+      theme: ThemeData.light().copyWith(scaffoldBackgroundColor: Colors.white),
+      home: FichaPage(),
     );
   }
 }

@@ -2,52 +2,57 @@ import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
   final Widget widget;
-  final Color fondo1;
-  final Color fondo2;
+  final Color colorGradienteInicio;
+  final Color colorGradienteFinal;
   final double ancho;
   final double alto;
-  final double elevacion;
   final double bordeRedondeado;
   final Function onPressed;
-  final bool usaGradiente;
-  
+  final bool utilizaGradiente;
+
   const ButtonWidget(
       {@required this.widget,
-      this.fondo1 = Colors.grey,
+      this.colorGradienteInicio = Colors.grey,
       this.ancho = 70,
       this.alto = 70,
-      this.elevacion = 0,
-      this.bordeRedondeado = 20,
+      this.bordeRedondeado = 50,
       this.onPressed,
-      this.usaGradiente = false,
-      this.fondo2 = Colors.grey});
+      this.utilizaGradiente = false,
+      this.colorGradienteFinal = Colors.grey});
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: onPressed,
-        child: Container(
-          width: ancho,
-          height: alto,
-          decoration: BoxDecoration(
-            color: fondo1,
-            borderRadius: BorderRadius.circular(bordeRedondeado),
-            gradient: LinearGradient(
-              colors: usaGradiente
-                  ? <Color>[
-                      fondo1,
-                      fondo2,
-                    ]
-                  : [fondo1, fondo1],
-            ),
+        onPressed: this.onPressed,
+        child: Card(
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(this.bordeRedondeado),
           ),
-          child: widget,
-          alignment: Alignment.center,
+          child: Container(
+            width: this.ancho,
+            height: this.alto,
+            decoration: BoxDecoration(
+              color: this.colorGradienteInicio,
+              borderRadius: BorderRadius.circular(this.bordeRedondeado),
+              gradient: LinearGradient(
+                colors: this.utilizaGradiente
+                    ? <Color>[
+                        this.colorGradienteInicio,
+                        this.colorGradienteFinal,
+                      ]
+                    : [this.colorGradienteInicio, this.colorGradienteInicio],
+              ),
+            ),
+            child: this.widget,
+            alignment: Alignment.center,
+          ),
         ),
         style: ButtonStyle(
-            minimumSize: MaterialStateProperty.all<Size>(Size(ancho, alto)),
-            elevation: MaterialStateProperty.all<double>(elevacion),
+            minimumSize:
+                MaterialStateProperty.all<Size>(Size(this.ancho, this.alto)),
+            elevation: MaterialStateProperty.all<double>(0),
             backgroundColor: MaterialStateProperty.all(Colors.transparent),
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(bordeRedondeado)))));
+                borderRadius: BorderRadius.circular(this.bordeRedondeado)))));
   }
 }
