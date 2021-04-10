@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:control_usuarios/src/pages/home_page.dart';
+import 'package:control_usuarios/src/widget/trancicion_cambio_pagina_animation.dart';
 import 'package:control_usuarios/src/widget/button_widget.dart';
 import 'package:control_usuarios/src/widget/fondo_widget.dart';
 import 'package:control_usuarios/src/widget/textfield_widget.dart';
@@ -118,6 +120,9 @@ class _BotonLogin extends StatelessWidget {
       utilizaGradiente: true,
       colorGradienteInicio: estilo.colorPrimarioDos,
       colorGradienteFinal: estilo.colorPrimarioUno,
+      onPressed: () {
+        Navigator.push(context, trancicionCambioPaginaAnimation(HomePage()));
+      },
     );
   }
 }

@@ -31,6 +31,7 @@ class _SwichListTileState extends State<SwichListTile> {
     return Container(
       width: this.widget.ancho,
       height: this.widget.alto,
+      padding: EdgeInsets.symmetric(horizontal: 5),
       child: Card(
         elevation: 4,
         shape: RoundedRectangleBorder(

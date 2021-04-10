@@ -49,22 +49,7 @@ class TextfieldWidget extends StatelessWidget {
         ),
         child: Row(
           children: <Widget>[
-            if (this.iconoIzquida)
-              CambioSizeAnimation(
-                sizeFinal: 40,
-                sizeIniciar: 0,
-                child: Container(
-                  width: 40,
-                  height: this.alto,
-                  child: OpacityAnimation(
-                    duration: Duration(milliseconds: 1300),
-                    child: FaIcon(
-                      this.icono,
-                      color: estilo.colorIconos,
-                    ),
-                  ),
-                ),
-              ),
+            if (this.iconoIzquida) _IconoTextfield(alto: alto, icono: icono),
             CambioSizeAnimation(
                 sizeFinal: this.ancho - 40,
                 sizeIniciar: this.ancho,
@@ -73,24 +58,38 @@ class TextfieldWidget extends StatelessWidget {
                     hindText: this.hindText,
                     alineacionTexto: this.alineacionTexto,
                     obscureText: this.obscureText)),
-            if (!iconoIzquida)
-              CambioSizeAnimation(
-                sizeFinal: 40,
-                sizeIniciar: 0,
-                child: Container(
-                  width: 40,
-                  height: this.alto,
-                  alignment: Alignment.center,
-                  child: OpacityAnimation(
-                    duration: Duration(milliseconds: 1300),
-                    child: FaIcon(
-                      this.icono,
-                      color: estilo.colorIconos,
-                    ),
-                  ),
-                ),
-              )
+            if (!iconoIzquida) _IconoTextfield(alto: alto, icono: icono),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _IconoTextfield extends StatelessWidget {
+  const _IconoTextfield({
+    @required this.alto,
+    @required this.icono,
+  });
+
+  final double alto;
+  final IconData icono;
+
+  @override
+  Widget build(BuildContext context) {
+    return CambioSizeAnimation(
+      sizeFinal: 40,
+      sizeIniciar: 0,
+      child: Container(
+        width: 40,
+        height: this.alto,
+        alignment: Alignment.center,
+        child: OpacityAnimation(
+          duration: Duration(milliseconds: 1300),
+          child: FaIcon(
+            this.icono,
+            color: estilo.colorIconos,
+          ),
         ),
       ),
     );

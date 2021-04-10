@@ -17,38 +17,41 @@ class _ExpancionPanelWidgetState extends State<ExpancionPanelWidget> {
   bool isExpanded = false;
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(50),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(50),
-        child: ExpansionPanelList(
-          expansionCallback: (int index, bool isExpanded) {
-            setState(() {
-              this.isExpanded = !isExpanded;
-            });
-          },
-          children: [
-            ExpansionPanel(
-              body: Column(children: [
-                _ItemExpancionPanel(
-                  items: widget.items,
-                )
-              ]),
-              isExpanded: this.isExpanded,
-              headerBuilder: (BuildContext context, bool isExpanded) {
-                return ListTile(
-                  title: Text(widget.titulo,
-                      style: TextStyle(
-                          fontSize: estilo.sizeText,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey)),
-                );
-              },
-            )
-          ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(50),
+          child: ExpansionPanelList(
+            expansionCallback: (int index, bool isExpanded) {
+              setState(() {
+                this.isExpanded = !isExpanded;
+              });
+            },
+            children: [
+              ExpansionPanel(
+                body: Column(children: [
+                  _ItemExpancionPanel(
+                    items: widget.items,
+                  )
+                ]),
+                isExpanded: this.isExpanded,
+                headerBuilder: (BuildContext context, bool isExpanded) {
+                  return ListTile(
+                    title: Text(widget.titulo,
+                        style: TextStyle(
+                            fontSize: estilo.sizeText,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey)),
+                  );
+                },
+              )
+            ],
+          ),
         ),
       ),
     );
