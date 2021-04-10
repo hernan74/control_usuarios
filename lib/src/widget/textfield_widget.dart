@@ -134,6 +134,8 @@ class _CampoTexto extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   color: Colors.grey),
               border: InputBorder.none,
+              contentPadding: EdgeInsets.only(
+                  left: this.alineacionTexto == TextAlign.start ? 15 : 0),
             )));
   }
 }

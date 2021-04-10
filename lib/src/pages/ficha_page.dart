@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:control_usuarios/src/widget/checkbox_widget.dart';
+import 'package:control_usuarios/src/widget/swich_list_tile_widget.dart';
 import 'package:control_usuarios/src/widget/expancion_panel_widget.dart';
 import 'package:control_usuarios/src/widget/linea_color_widget.dart';
 import 'package:control_usuarios/src/widget/textfield_widget.dart';
@@ -89,54 +89,80 @@ class _Formulario extends StatelessWidget {
             _TituloFormulario(
               size: size,
             ),
-            Container(
-              width: size.width * 90 / 100,
-              height: size.height * 56 / 100,
-              child: ListView(
-                physics: BouncingScrollPhysics(),
-                children: <Widget>[
-                  Column(
-                    children: modeloficha
-                        .map((modelo) => Column(
-                              children: [
-                                TextfieldWidget(
-                                  ancho: size.width * 85 / 100,
-                                  hindText: modelo.titulo,
-                                  icono: modelo.icono,
-                                  colorGradienteIconoInicio:
-                                      estilo.colorPrimarioUno,
-                                  colorGradienteIconoFin:
-                                      estilo.colorPrimarioUnoGradiente,
-                                ),
-                                SizedBox(
-                                  height: size.width * 5 / 100,
-                                ),
-                              ],
-                            ))
-                        .toList(),
-                  ),
-                  CheckBoxWidget(
-                    checkColor: estilo.colorPrimarioDos,
-                    fondoCheckColor: estilo.colorPrimarioUno,
-                    ancho: size.width * 80 / 100,
-                    titulo: 'Es pensionado',
-                    onChanged: (valor) {},
-                  ),
-                  SizedBox(
-                    height: size.width * 5 / 100,
-                  ),
-                  ExpancionPanelWidget(
-                    contenido: null,
-                  ),
-                  SizedBox(
-                    height: size.width * 5 / 100,
-                  ),
-                ],
-              ),
-            ),
+            _CamposFormulario(size: size),
             _BotonGuardarFormulario(size: size),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _CamposFormulario extends StatelessWidget {
+  const _CamposFormulario({
+    @required this.size,
+  });
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: size.width * 90 / 100,
+      height: size.height * 56 / 100,
+      child: ListView(
+        physics: BouncingScrollPhysics(),
+        children: <Widget>[
+          Column(
+            children: modeloficha
+                .map((modelo) => Column(
+                      children: [
+                        TextfieldWidget(
+                          alineacionTexto: TextAlign.start,
+                          ancho: size.width * 85 / 100,
+                          hindText: modelo.titulo,
+                          icono: modelo.icono,
+                          colorGradienteIconoInicio: estilo.colorPrimarioUno,
+                          colorGradienteIconoFin:
+                              estilo.colorPrimarioUnoGradiente,
+                        ),
+                        SizedBox(
+                          height: size.width * 5 / 100,
+                        ),
+                      ],
+                    ))
+                .toList(),
+          ),
+          SwichListTile(
+            checkColor: estilo.colorPrimarioDos,
+            fondoCheckColor: estilo.colorPrimarioUno,
+            ancho: size.width * 80 / 100,
+            titulo: 'Es pensionado',
+          ),
+          SizedBox(
+            height: size.width * 5 / 100,
+          ),
+          ExpancionPanelWidget(
+            titulo: 'Motivos',
+            items: [
+              ItemExpancionPanelModel(
+                titulo: 'Primer valor',
+                valor: 'Primero',
+              ),
+              ItemExpancionPanelModel(
+                titulo: 'Segundo valor',
+                valor: 'Segundo',
+              ),
+              ItemExpancionPanelModel(
+                titulo: 'Tercer valor',
+                valor: 'Tercero',
+              )
+            ],
+          ),
+          SizedBox(
+            height: size.width * 5 / 100,
+          ),
+        ],
       ),
     );
   }
