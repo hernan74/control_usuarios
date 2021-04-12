@@ -16,6 +16,11 @@ class TextfieldWidget extends StatelessWidget {
   final String hindText;
   final TextAlign alineacionTexto;
   final bool obscureText;
+  final TextInputType textInputType;
+  final TextEditingController controller;
+  final bool enableInteractiveSelection;
+  final Function onTap;
+
   const TextfieldWidget(
       {this.alto = 60,
       this.ancho = 250,
@@ -25,7 +30,11 @@ class TextfieldWidget extends StatelessWidget {
       this.hindText = '',
       this.colorGradienteIconoFin = Colors.grey,
       this.alineacionTexto = TextAlign.center,
-      this.obscureText = false});
+      this.obscureText = false,
+      this.textInputType = TextInputType.text,
+      this.controller,
+      this.enableInteractiveSelection = true,
+      this.onTap});
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -49,16 +58,23 @@ class TextfieldWidget extends StatelessWidget {
         ),
         child: Row(
           children: <Widget>[
-            if (this.iconoIzquida) _IconoTextfield(alto: alto, icono: icono),
+            if (this.iconoIzquida)
+              _IconoTextfield(alto: this.alto, icono: this.icono),
             CambioSizeAnimation(
                 sizeFinal: this.ancho - 40,
                 sizeIniciar: this.ancho,
                 child: _CampoTexto(
-                    ancho: this.ancho,
-                    hindText: this.hindText,
-                    alineacionTexto: this.alineacionTexto,
-                    obscureText: this.obscureText)),
-            if (!iconoIzquida) _IconoTextfield(alto: alto, icono: icono),
+                  ancho: this.ancho,
+                  hindText: this.hindText,
+                  alineacionTexto: this.alineacionTexto,
+                  obscureText: this.obscureText,
+                  textInputType: this.textInputType,
+                  controller: this.controller,
+                  enableInteractiveSelection: this.enableInteractiveSelection,
+                  onTap: this.onTap,
+                )),
+            if (!this.iconoIzquida)
+              _IconoTextfield(alto: this.alto, icono: this.icono),
           ],
         ),
       ),
@@ -102,13 +118,20 @@ class _CampoTexto extends StatelessWidget {
     @required this.hindText,
     this.alineacionTexto,
     this.obscureText,
+    this.textInputType,
+    this.controller,
+    this.enableInteractiveSelection,
+    this.onTap,
   });
 
   final double ancho;
   final String hindText;
   final TextAlign alineacionTexto;
   final bool obscureText;
-
+  final TextInputType textInputType;
+  final TextEditingController controller;
+  final bool enableInteractiveSelection;
+  final Function onTap;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -121,20 +144,25 @@ class _CampoTexto extends StatelessWidget {
         ),
         padding: EdgeInsets.all(0),
         child: TextField(
-            obscureText: this.obscureText,
-            textAlign: this.alineacionTexto,
-            style: TextStyle(
-              fontSize: estilo.sizeText,
-            ),
-            decoration: new InputDecoration(
-              hintText: this.hindText,
-              hintStyle: TextStyle(
-                  fontSize: estilo.sizeText,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey),
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(
-                  left: this.alineacionTexto == TextAlign.start ? 15 : 0),
-            )));
+          textCapitalization: TextCapitalization.sentences,
+          keyboardType: this.textInputType,
+          obscureText: this.obscureText,
+          textAlign: this.alineacionTexto,
+          controller: this.controller,
+          style: TextStyle(
+            fontSize: estilo.sizeText,
+          ),
+          decoration: new InputDecoration(
+            hintText: this.hindText,
+            hintStyle: TextStyle(
+                fontSize: estilo.sizeText,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey),
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.only(
+                left: this.alineacionTexto == TextAlign.start ? 15 : 0),
+          ),
+          onTap: onTap,
+        ));
   }
 }

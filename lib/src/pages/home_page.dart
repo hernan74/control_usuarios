@@ -1,4 +1,4 @@
-import 'package:control_usuarios/src/widget/fondo_widget.dart';
+import 'package:control_usuarios/src/helpers/usuarios.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,6 +8,8 @@ import 'package:control_usuarios/src/widget/item_lista_usuarios_widget.dart';
 import 'package:control_usuarios/src/widget/trancicion_cambio_pagina_animation.dart';
 import 'package:control_usuarios/src/widget/button_widget.dart';
 import 'package:control_usuarios/src/helpers/estilos.dart' as estilo;
+import 'package:control_usuarios/src/search/search_delegate.dart';
+import 'package:control_usuarios/src/widget/fondo_home_widget.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -16,22 +18,15 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          FondoWidget(),
+          FondoHomeWidget(),
           Positioned(
-              top: size.height * 3 / 100,
-              right: 0,
-              child: _IconoCerrarSesion()),
+              top: size.height * 5 / 100, right: 0, child: _IconoAppBar()),
           Positioned(
-            top: size.height * 8 / 100,
+            top: size.height * 12 / 100,
             child: Container(
               width: size.width,
               height: size.height * 90 / 100,
-              child: ListView(
-                physics: BouncingScrollPhysics(),
-                children: [
-                  _ListaUsuarios(),
-                ],
-              ),
+              child: _ListaUsuarios(),
             ),
           ),
         ],
@@ -41,20 +36,28 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class _IconoCerrarSesion extends StatelessWidget {
-  const _IconoCerrarSesion({
-    Key key,
-  }) : super(key: key);
-
+class _IconoAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      icon: Icon(Icons.logout),
-      color: estilo.colorIconos,
-      iconSize: 30,
-      onPressed: () {
-        Navigator.pop(context);
-      },
+    return Row(
+      children: [
+        IconButton(
+          icon: Icon(Icons.search),
+          color: estilo.colorIconos,
+          iconSize: 30,
+          onPressed: () {
+            showSearch(context: context, delegate: DataSearch());
+          },
+        ),
+        IconButton(
+          icon: Icon(Icons.logout),
+          color: estilo.colorIconos,
+          iconSize: 30,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ],
     );
   }
 }
@@ -66,93 +69,30 @@ class _ListaUsuarios extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ItemListaUsuariosWidget(
-          tagHero: 'hernan',
-          fotoUrl: 'assets/avatar.png',
-          apyNom: 'Hernan Daniel Lopez',
-          direccion: 'Km 10, Eldorado, Misiones',
-          sincronizado: true,
+    return MediaQuery.removePadding(
+      context: context,
+      removeTop: true,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: ListView(
+          physics: BouncingScrollPhysics(),
+          children: listaUsuarios.map(
+            (usu) {
+              final key = UniqueKey();
+              return Dismissible(
+                key: key,
+                child: ItemListaUsuariosWidget(
+                  tagHero: usu.uniqueId,
+                  fotoUrl: usu.fotoUrl,
+                  apyNom: usu.apyNom,
+                  direccion: usu.direccion,
+                  sincronizado: usu.sincronizado,
+                ),
+              );
+            },
+          ).toList(),
         ),
-        ItemListaUsuariosWidget(
-          tagHero: 'juanito',
-          fotoUrl: 'assets/avatar.jpg',
-          apyNom: 'Juanito Perez',
-          direccion: 'km 6, Eldorado, Misiones',
-          sincronizado: false,
-        ),
-        ItemListaUsuariosWidget(
-          tagHero: 'maria',
-          fotoUrl: 'assets/avatar.png',
-          apyNom: 'Maria Martinez',
-          direccion: 'km 11, Eldorado, Misiones',
-          sincronizado: false,
-        ),
-        ItemListaUsuariosWidget(
-          tagHero: 'hernan1',
-          fotoUrl: 'assets/avatar.png',
-          apyNom: 'Hernan Daniel Lopez',
-          direccion: 'Km 10, Eldorado, Misiones',
-          sincronizado: true,
-        ),
-        ItemListaUsuariosWidget(
-          tagHero: 'juanito1',
-          fotoUrl: 'assets/avatar.jpg',
-          apyNom: 'Juanito Perez',
-          direccion: 'km 6, Eldorado, Misiones',
-          sincronizado: false,
-        ),
-        ItemListaUsuariosWidget(
-          tagHero: 'maria1',
-          fotoUrl: 'assets/avatar.png',
-          apyNom: 'Maria Martinez',
-          direccion: 'km 11, Eldorado, Misiones',
-          sincronizado: false,
-        ),
-        ItemListaUsuariosWidget(
-          tagHero: 'hernan2',
-          fotoUrl: 'assets/avatar.png',
-          apyNom: 'Hernan Daniel Lopez',
-          direccion: 'Km 10, Eldorado, Misiones',
-          sincronizado: true,
-        ),
-        ItemListaUsuariosWidget(
-          tagHero: 'juanito2',
-          fotoUrl: 'assets/avatar.jpg',
-          apyNom: 'Juanito Perez',
-          direccion: 'km 6, Eldorado, Misiones',
-          sincronizado: false,
-        ),
-        ItemListaUsuariosWidget(
-          tagHero: 'maria2',
-          fotoUrl: 'assets/avatar.png',
-          apyNom: 'Maria Martinez',
-          direccion: 'km 11, Eldorado, Misiones',
-          sincronizado: false,
-        ),
-        ItemListaUsuariosWidget(
-          tagHero: 'hernan3',
-          fotoUrl: 'assets/avatar.png',
-          apyNom: 'Hernan Daniel Lopez',
-          direccion: 'Km 10, Eldorado, Misiones',
-          sincronizado: true,
-        ),
-        ItemListaUsuariosWidget(
-          tagHero: 'juanito3',
-          fotoUrl: 'assets/avatar.jpg',
-          apyNom: 'Juanito Perez',
-          direccion: 'km 6, Eldorado, Misiones',
-          sincronizado: false,
-        ),
-        ItemListaUsuariosWidget(
-          tagHero: 'maria3',
-          fotoUrl: 'assets/avatar.png',
-          apyNom: 'Maria Martinez',
-          direccion: 'km 11, Eldorado, Misiones',
-          sincronizado: false,
-        ),
-      ],
+      ),
     );
   }
 }

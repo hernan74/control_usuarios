@@ -19,8 +19,8 @@ class _OpacityAnimationState extends State<OpacityAnimation>
   @override
   void initState() {
     controller =
-        new AnimationController(vsync: this, duration: widget.duration);
-    opacidad = Tween(begin: 0.0, end: 1.0).animate(controller);
+        new AnimationController(vsync: this, duration: this.widget.duration);
+    opacidad = Tween(begin: 0.0, end: 1.0).animate(this.controller);
 
     super.initState();
   }
@@ -35,11 +35,11 @@ class _OpacityAnimationState extends State<OpacityAnimation>
   Widget build(BuildContext context) {
     controller.forward();
     return AnimatedBuilder(
-      animation: controller,
+      animation: this.controller,
       builder: (BuildContext context, Widget child) {
         return Opacity(
-          opacity: opacidad.value,
-          child: widget.child,
+          opacity: this.opacidad.value,
+          child: this.widget.child,
         );
       },
     );

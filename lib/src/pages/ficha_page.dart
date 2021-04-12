@@ -8,7 +8,7 @@ import 'package:control_usuarios/src/widget/button_widget.dart';
 import 'package:control_usuarios/src/widget/circulo_widget.dart';
 import 'package:control_usuarios/src/helpers/estilos.dart' as estilo;
 import 'package:control_usuarios/src/helpers/modelo_ficha.dart';
-import 'package:control_usuarios/src/widget/fondo_widget.dart';
+import 'package:control_usuarios/src/widget/fondo_login_widget.dart';
 
 class FichaPage extends StatelessWidget {
   @override
@@ -22,13 +22,13 @@ class FichaPage extends StatelessWidget {
           child: Stack(
             alignment: Alignment.topCenter,
             children: [
-              FondoWidget(),
+              FondoLoginWidget(),
               _Cabecera(),
               Positioned(
                   left: size.width * 4 / 100,
                   top: size.height * 5 / 100,
                   child: _CerrarVentana()),
-              Positioned(top: size.height * 25 / 100, child: _Formulario())
+              Positioned(top: size.height * 24 / 100, child: _Formulario())
             ],
           ),
         ),
@@ -103,7 +103,7 @@ class _Formulario extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Container(
       width: size.width * 90 / 100,
-      height: size.height * 74 / 100,
+      height: size.height * 75 / 100,
       child: Card(
         elevation: 4,
         shape: RoundedRectangleBorder(
@@ -127,60 +127,64 @@ class _CamposFormulario extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Container(
       width: size.width * 90 / 100,
-      height: size.height * 56 / 100,
-      child: ListView(
-        physics: BouncingScrollPhysics(),
-        children: <Widget>[
-          Column(
-            children: modeloficha
-                .map((modelo) => Column(
-                      children: [
-                        TextfieldWidget(
-                          alineacionTexto: TextAlign.start,
-                          ancho: size.width * 85 / 100,
-                          hindText: modelo.titulo,
-                          icono: modelo.icono,
-                          colorGradienteIconoInicio: estilo.colorPrimarioUno,
-                          colorGradienteIconoFin:
-                              estilo.colorPrimarioUnoGradiente,
-                        ),
-                        SizedBox(
-                          height: size.width * 5 / 100,
-                        ),
-                      ],
-                    ))
-                .toList(),
-          ),
-          SwichListTile(
-            checkColor: estilo.colorPrimarioDos,
-            fondoCheckColor: estilo.colorPrimarioUno,
-            ancho: size.width * 80 / 100,
-            titulo: 'Es pensionado',
-          ),
-          SizedBox(
-            height: size.width * 5 / 100,
-          ),
-          ExpancionPanelWidget(
-            titulo: 'Motivos',
-            items: [
-              ItemExpancionPanelModel(
-                titulo: 'Primer valor',
-                valor: 'Primero',
-              ),
-              ItemExpancionPanelModel(
-                titulo: 'Segundo valor',
-                valor: 'Segundo',
-              ),
-              ItemExpancionPanelModel(
-                titulo: 'Tercer valor',
-                valor: 'Tercero',
-              )
-            ],
-          ),
-          SizedBox(
-            height: size.width * 5 / 100,
-          ),
-        ],
+      height: size.height * 55 / 100,
+      child: MediaQuery.removePadding(
+        context: context,
+        removeTop: true,
+        child: ListView(
+          physics: BouncingScrollPhysics(),
+          children: <Widget>[
+            Column(
+              children: modeloficha
+                  .map((modelo) => Column(
+                        children: [
+                          TextfieldWidget(
+                            alineacionTexto: TextAlign.start,
+                            ancho: size.width * 85 / 100,
+                            hindText: modelo.titulo,
+                            icono: modelo.icono,
+                            colorGradienteIconoInicio: estilo.colorPrimarioUno,
+                            colorGradienteIconoFin:
+                                estilo.colorPrimarioUnoGradiente,
+                          ),
+                          SizedBox(
+                            height: size.width * 5 / 100,
+                          ),
+                        ],
+                      ))
+                  .toList(),
+            ),
+            SwichListTile(
+              checkColor: estilo.colorPrimarioDos,
+              fondoCheckColor: estilo.colorPrimarioUno,
+              ancho: size.width * 80 / 100,
+              titulo: 'Es pensionado',
+            ),
+            SizedBox(
+              height: size.width * 5 / 100,
+            ),
+            ExpancionPanelWidget(
+              titulo: 'Motivos',
+              items: [
+                ItemExpancionPanelModel(
+                  titulo: 'Primer valor',
+                  valor: 'Primero',
+                ),
+                ItemExpancionPanelModel(
+                  titulo: 'Segundo valor',
+                  valor: 'Segundo',
+                ),
+                ItemExpancionPanelModel(
+                  titulo: 'Tercer valor',
+                  valor: 'Tercero',
+                )
+              ],
+            ),
+            SizedBox(
+              height: size.width * 5 / 100,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -228,7 +232,7 @@ class _TituloFormulario extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
-      height: size.height * 7 / 100,
+      height: size.height * 9 / 100,
       child: Column(
         children: [
           SizedBox(
@@ -240,9 +244,6 @@ class _TituloFormulario extends StatelessWidget {
             style: TextStyle(
                 fontSize: estilo.sizeTituloLogin,
                 color: estilo.colorTituloLogin),
-          ),
-          SizedBox(
-            height: size.width * 2 / 100,
           ),
           LineaColorWidget(
             offsetSombra: 2,

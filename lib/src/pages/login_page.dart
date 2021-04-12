@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:control_usuarios/src/pages/home_page.dart';
 import 'package:control_usuarios/src/widget/trancicion_cambio_pagina_animation.dart';
 import 'package:control_usuarios/src/widget/button_widget.dart';
-import 'package:control_usuarios/src/widget/fondo_widget.dart';
+import 'package:control_usuarios/src/widget/fondo_login_widget.dart';
 import 'package:control_usuarios/src/widget/textfield_widget.dart';
 import 'package:control_usuarios/src/widget/opacity_animation.dart';
 import 'package:control_usuarios/src/helpers/estilos.dart' as estilo;
@@ -20,7 +20,7 @@ class LoginPage extends StatelessWidget {
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
-            FondoWidget(),
+            FondoLoginWidget(),
             Positioned(top: size.height * 40 / 100, child: _FormularioLogin()),
             Positioned(
                 top: size.height * 30 / 100, right: 30, child: _Titulo()),

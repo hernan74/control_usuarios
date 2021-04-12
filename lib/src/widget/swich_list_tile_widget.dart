@@ -38,7 +38,7 @@ class _SwichListTileState extends State<SwichListTile> {
           borderRadius: BorderRadius.circular(this.widget.bordeRedondeado),
         ),
         child: SwitchListTile(
-          title: Text(widget.titulo,
+          title: Text(this.widget.titulo,
               style: TextStyle(
                   fontSize: estilo.sizeText,
                   fontWeight: FontWeight.bold,

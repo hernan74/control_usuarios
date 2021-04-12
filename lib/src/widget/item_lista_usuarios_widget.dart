@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:control_usuarios/src/pages/ficha_page.dart';
 import 'package:control_usuarios/src/widget/trancicion_cambio_pagina_animation.dart';
 import 'package:control_usuarios/src/helpers/estilos.dart' as estilo;
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ItemListaUsuariosWidget extends StatelessWidget {
   final String apyNom;
@@ -28,7 +29,7 @@ class ItemListaUsuariosWidget extends StatelessWidget {
       child: Container(
           margin: EdgeInsets.symmetric(vertical: 5),
           width: size.width * 90 / 100,
-          height: size.height * 15 / 100,
+          height: size.height * 14 / 100,
           decoration: BoxDecoration(
               gradient: LinearGradient(colors: [
                 estilo.colorPrimarioDos.withOpacity(0.8),
@@ -52,7 +53,7 @@ class ItemListaUsuariosWidget extends StatelessWidget {
                   apyNom: this.apyNom,
                   direccion: this.direccion,
                 ),
-                _IconoSincronizado(
+                _IconosDerecha(
                   sincronizado: this.sincronizado,
                 )
               ],
@@ -62,10 +63,10 @@ class ItemListaUsuariosWidget extends StatelessWidget {
   }
 }
 
-class _IconoSincronizado extends StatelessWidget {
+class _IconosDerecha extends StatelessWidget {
   final bool sincronizado;
 
-  const _IconoSincronizado({this.sincronizado});
+  const _IconosDerecha({this.sincronizado});
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -122,7 +123,6 @@ class _InformacionUsuario extends StatelessWidget {
   const _InformacionUsuario({this.apyNom, this.direccion});
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Container(
       width: MediaQuery.of(context).size.width * 54 / 100,
       child: Column(
@@ -131,18 +131,19 @@ class _InformacionUsuario extends StatelessWidget {
           Spacer(),
           Text(
             apyNom,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
             style: TextStyle(
                 fontSize: estilo.sizeText, fontWeight: FontWeight.bold),
           ),
           Text(
             direccion,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
             style: TextStyle(
               fontSize: estilo.sizeHindTextfield,
               color: Colors.grey,
             ),
-          ),
-          SizedBox(
-            height: size.height * 4 / 100,
           ),
           Spacer(),
         ],

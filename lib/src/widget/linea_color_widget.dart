@@ -23,14 +23,14 @@ class LineaColorWidget extends StatelessWidget {
       width: this.ancho,
       height: this.alto,
       decoration: BoxDecoration(
-          color: color,
+          color: this.color,
           borderRadius: BorderRadius.horizontal(
               left: Radius.circular(this.bordeRedondoIzquierdo),
               right: Radius.circular(this.bordeRedondoDerecho)),
           boxShadow: <BoxShadow>[
             BoxShadow(
               color: Colors.black.withOpacity(0.7),
-              offset: Offset(0, offsetSombra),
+              offset: Offset(0, this.offsetSombra),
               blurRadius: 2,
               spreadRadius: 0,
             )

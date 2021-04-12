@@ -23,15 +23,15 @@ class _CambioSizeAnimationState extends State<CambioSizeAnimation>
   void initState() {
     controller =
         new AnimationController(vsync: this, duration: Duration(seconds: 1));
-    size = Tween(begin: widget.sizeIniciar, end: widget.sizeFinal)
-        .animate(controller);
+    size = Tween(begin: this.widget.sizeIniciar, end: this.widget.sizeFinal)
+        .animate(this.controller);
 
     super.initState();
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    this.controller.dispose();
     super.dispose();
   }
 
@@ -39,11 +39,11 @@ class _CambioSizeAnimationState extends State<CambioSizeAnimation>
   Widget build(BuildContext context) {
     controller.forward();
     return AnimatedBuilder(
-      animation: controller,
+      animation: this.controller,
       builder: (BuildContext context, Widget child) {
         return Container(
-          width: size.value,
-          child: widget.child,
+          width: this.size.value,
+          child: this.widget.child,
         );
       },
     );

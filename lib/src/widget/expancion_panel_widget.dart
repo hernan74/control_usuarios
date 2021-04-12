@@ -36,7 +36,7 @@ class _ExpancionPanelWidgetState extends State<ExpancionPanelWidget> {
               ExpansionPanel(
                 body: Column(children: [
                   _ItemExpancionPanel(
-                    items: widget.items,
+                    items: this.widget.items,
                   )
                 ]),
                 isExpanded: this.isExpanded,
@@ -78,7 +78,7 @@ class _ItemExpancionPanelState extends State<_ItemExpancionPanel> {
   @override
   Widget build(BuildContext context) {
     return Column(
-        children: widget.items
+        children: this.widget.items
             .map((model) => RadioListTile(
                   activeColor: estilo.colorPrimarioUno,
                   title: Text(model.titulo,
