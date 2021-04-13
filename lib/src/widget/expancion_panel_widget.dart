@@ -5,8 +5,15 @@ import 'package:control_usuarios/src/helpers/estilos.dart' as estilo;
 class ExpancionPanelWidget extends StatefulWidget {
   final String titulo;
   final List<ItemExpancionPanelModel> items;
+  final double ancho;
+  final double alto;
 
-  const ExpancionPanelWidget({@required this.titulo, @required this.items});
+  const ExpancionPanelWidget({
+    @required this.titulo,
+    @required this.items,
+    this.ancho = 200,
+    this.alto = 30,
+  });
 
   @override
   _ExpancionPanelWidgetState createState() => _ExpancionPanelWidgetState();
@@ -17,7 +24,9 @@ class _ExpancionPanelWidgetState extends State<ExpancionPanelWidget> {
   bool isExpanded = false;
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    final size = MediaQuery.of(context).size;
+    return Container(
+      width: this.widget.ancho,
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: Card(
         elevation: 4,
@@ -34,6 +43,7 @@ class _ExpancionPanelWidgetState extends State<ExpancionPanelWidget> {
             },
             children: [
               ExpansionPanel(
+                canTapOnHeader: true,
                 body: Column(children: [
                   _ItemExpancionPanel(
                     items: this.widget.items,
@@ -41,8 +51,12 @@ class _ExpancionPanelWidgetState extends State<ExpancionPanelWidget> {
                 ]),
                 isExpanded: this.isExpanded,
                 headerBuilder: (BuildContext context, bool isExpanded) {
-                  return ListTile(
-                    title: Text(widget.titulo,
+                  return Container(
+                    padding: EdgeInsets.only(
+                        top: size.height * 1.2 / 100,
+                        left: size.width * 3.4 / 100),
+                    height: 10,
+                    child: Text(widget.titulo,
                         style: TextStyle(
                             fontSize: estilo.sizeText,
                             fontWeight: FontWeight.bold,
@@ -78,7 +92,9 @@ class _ItemExpancionPanelState extends State<_ItemExpancionPanel> {
   @override
   Widget build(BuildContext context) {
     return Column(
-        children: this.widget.items
+        children: this
+            .widget
+            .items
             .map((model) => RadioListTile(
                   activeColor: estilo.colorPrimarioUno,
                   title: Text(model.titulo,

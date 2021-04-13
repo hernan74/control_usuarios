@@ -58,7 +58,7 @@ class TextfieldWidget extends StatelessWidget {
         ),
         child: Row(
           children: <Widget>[
-            if (this.iconoIzquida)
+            if (this.iconoIzquida) 
               _IconoTextfield(alto: this.alto, icono: this.icono),
             CambioSizeAnimation(
                 sizeFinal: this.ancho - 40,

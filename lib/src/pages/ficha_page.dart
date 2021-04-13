@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:control_usuarios/src/widget/swich_list_tile_widget.dart';
-import 'package:control_usuarios/src/widget/expancion_panel_widget.dart';
-import 'package:control_usuarios/src/widget/linea_color_widget.dart';
-import 'package:control_usuarios/src/widget/textfield_widget.dart';
-import 'package:control_usuarios/src/widget/button_widget.dart';
-import 'package:control_usuarios/src/widget/circulo_widget.dart';
+import 'package:control_usuarios/src/helpers/import_helpers.dart';
+
 import 'package:control_usuarios/src/helpers/estilos.dart' as estilo;
-import 'package:control_usuarios/src/helpers/modelo_ficha.dart';
-import 'package:control_usuarios/src/widget/fondo_login_widget.dart';
 
 class FichaPage extends StatelessWidget {
   @override
@@ -28,7 +22,7 @@ class FichaPage extends StatelessWidget {
                   left: size.width * 4 / 100,
                   top: size.height * 5 / 100,
                   child: _CerrarVentana()),
-              Positioned(top: size.height * 24 / 100, child: _Formulario())
+              Positioned(top: size.height * 25 / 100, child: _Formulario())
             ],
           ),
         ),
@@ -60,14 +54,14 @@ class _Cabecera extends StatelessWidget {
       children: [
         Positioned(
           top: size.height * 5 / 100,
-          child: CirculoWidget(
-            sizeCirculo: size.height * 18 / 100,
-            colorCiculo: estilo.colorPrimarioUno,
-            contenidoCirculo: Hero(
-              tag: 'juanito',
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Image(
+          child: Hero(
+            tag: 'juanito',
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: CirculoWidget(
+                sizeCirculo: size.height * 18 / 100,
+                colorCiculo: Colors.white,
+                contenidoCirculo: Image(
                   image: AssetImage('assets/avatar.jpg'),
                   fit: BoxFit.cover,
                 ),
@@ -103,31 +97,36 @@ class _Formulario extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Container(
       width: size.width * 90 / 100,
-      height: size.height * 75 / 100,
-      child: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          children: [
-            _TituloFormulario(),
-            _CamposFormulario(),
-            _BotonGuardarFormulario(),
-          ],
-        ),
+      height: size.height * 74 / 100,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          _TituloFormulario(
+            size: size,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          _CamposFormulario(size: size),
+          _BotonGuardarFormulario(size: size),
+        ],
       ),
     );
   }
 }
 
 class _CamposFormulario extends StatelessWidget {
+  const _CamposFormulario({
+    @required this.size,
+  });
+
+  final Size size;
+
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Container(
       width: size.width * 90 / 100,
-      height: size.height * 55 / 100,
+      height: size.height * 56 / 100,
       child: MediaQuery.removePadding(
         context: context,
         removeTop: true,
@@ -138,15 +137,37 @@ class _CamposFormulario extends StatelessWidget {
               children: modeloficha
                   .map((modelo) => Column(
                         children: [
-                          TextfieldWidget(
-                            alineacionTexto: TextAlign.start,
-                            ancho: size.width * 85 / 100,
-                            hindText: modelo.titulo,
-                            icono: modelo.icono,
-                            colorGradienteIconoInicio: estilo.colorPrimarioUno,
-                            colorGradienteIconoFin:
-                                estilo.colorPrimarioUnoGradiente,
-                          ),
+                          if (modelo.tipoDato != 'date')
+                            TextfieldWidget(
+                                iconoIzquida: (modelo.indice % 2 != 0),
+                                alineacionTexto: TextAlign.start,
+                                ancho: size.width * 85 / 100,
+                                hindText: modelo.titulo,
+                                icono: modelo.icono,
+                                colorGradienteIconoInicio:
+                                    (modelo.indice % 2 != 0)
+                                        ? estilo.colorPrimarioDos
+                                        : estilo.colorPrimarioUno,
+                                colorGradienteIconoFin: (modelo.indice % 2 != 0)
+                                    ? estilo.colorPrimarioDosGradiente
+                                    : estilo.colorPrimarioUnoGradiente,
+                                textInputType: (modelo.tipoDato == 'String')
+                                    ? TextInputType.text
+                                    : TextInputType.number)
+                          else
+                            SelectorFechaWidget(
+                              colorGradienteIconoInicio:
+                                  (modelo.indice % 2 != 0)
+                                      ? estilo.colorPrimarioDos
+                                      : estilo.colorPrimarioUno,
+                              colorGradienteIconoFin: (modelo.indice % 2 != 0)
+                                  ? estilo.colorPrimarioDosGradiente
+                                  : estilo.colorPrimarioUnoGradiente,
+                              iconoIzquida: modelo.indice % 2 != 0,
+                              ancho: size.width * 85 / 100,
+                              hindText: modelo.titulo,
+                              icono: modelo.icono,
+                            ),
                           SizedBox(
                             height: size.width * 5 / 100,
                           ),
@@ -163,26 +184,6 @@ class _CamposFormulario extends StatelessWidget {
             SizedBox(
               height: size.width * 5 / 100,
             ),
-            ExpancionPanelWidget(
-              titulo: 'Motivos',
-              items: [
-                ItemExpancionPanelModel(
-                  titulo: 'Primer valor',
-                  valor: 'Primero',
-                ),
-                ItemExpancionPanelModel(
-                  titulo: 'Segundo valor',
-                  valor: 'Segundo',
-                ),
-                ItemExpancionPanelModel(
-                  titulo: 'Tercer valor',
-                  valor: 'Tercero',
-                )
-              ],
-            ),
-            SizedBox(
-              height: size.width * 5 / 100,
-            ),
           ],
         ),
       ),
@@ -191,18 +192,18 @@ class _CamposFormulario extends StatelessWidget {
 }
 
 class _BotonGuardarFormulario extends StatelessWidget {
+  const _BotonGuardarFormulario({
+    @required this.size,
+  });
+
+  final Size size;
+
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Column(
       children: [
-        LineaColorWidget(
-          ancho: size.height * 90 / 100,
-          offsetSombra: -2,
-          alto: 1,
-        ),
         SizedBox(
-          height: size.width * 2 / 100,
+          height: size.height * 3 / 100,
         ),
         Hero(
           tag: 'GuardarNuevo',
@@ -212,15 +213,15 @@ class _BotonGuardarFormulario extends StatelessWidget {
                     color: estilo.colorTextoBoton,
                     fontWeight: FontWeight.bold,
                     fontSize: estilo.sizeText)),
-            ancho: size.width - 60,
+            ancho: size.width * 80 / 100,
             alto: 50,
             utilizaGradiente: true,
             colorGradienteInicio: estilo.colorPrimarioDos,
             colorGradienteFinal: estilo.colorPrimarioUno,
+            onPressed: () {
+              mostrarSnackBar(context: context, msj: 'Mensaje SnackBar');
+            },
           ),
-        ),
-        SizedBox(
-          height: size.width * 2 / 100,
         ),
       ],
     );
@@ -228,29 +229,28 @@ class _BotonGuardarFormulario extends StatelessWidget {
 }
 
 class _TituloFormulario extends StatelessWidget {
+  const _TituloFormulario({
+    @required this.size,
+  });
+
+  final Size size;
+
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Container(
-      height: size.height * 9 / 100,
-      child: Column(
-        children: [
-          SizedBox(
-            height: size.width * 2 / 100,
-          ),
-          Text(
-            'Formulario',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: estilo.sizeTituloLogin,
-                color: estilo.colorTituloLogin),
-          ),
-          LineaColorWidget(
-            offsetSombra: 2,
-            ancho: size.height * 90 / 100,
-            alto: 1,
-          ),
-        ],
+    return OpacityAnimation(
+      duration: Duration(seconds: 2),
+      child: Container(
+        child: Column(
+          children: [
+            Text(
+              'Formulario',
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                  fontSize: estilo.sizeTituloLogin,
+                  color: estilo.colorTituloLogin),
+            ),
+          ],
+        ),
       ),
     );
   }

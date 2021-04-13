@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:control_usuarios/src/widget/textfield_widget.dart';
-import 'package:control_usuarios/src/helpers/estilos.dart' as estilo;
 
 class SelectorFechaWidget extends StatefulWidget {
   final IconData icono;
@@ -11,13 +10,19 @@ class SelectorFechaWidget extends StatefulWidget {
   final double ancho;
   final double alto;
   final String formatoFecha;
+  final bool iconoIzquida;
+  final Color colorGradienteIconoInicio;
+  final Color colorGradienteIconoFin;
 
   const SelectorFechaWidget(
       {this.icono = Icons.ac_unit,
       this.hindText = '',
       this.ancho = 150,
       this.alto = 60,
-      this.formatoFecha = 'dd/MM/yyyy'});
+      this.formatoFecha = 'dd/MM/yyyy',
+      this.iconoIzquida = false,
+      this.colorGradienteIconoInicio = Colors.grey,
+      this.colorGradienteIconoFin = Colors.grey});
 
   @override
   _SelectorFechaWidgetState createState() => _SelectorFechaWidgetState();
@@ -41,13 +46,14 @@ class _SelectorFechaWidgetState extends State<SelectorFechaWidget> {
   @override
   Widget build(BuildContext context) {
     return TextfieldWidget(
+      iconoIzquida: this.widget.iconoIzquida,
       alineacionTexto: TextAlign.start,
       ancho: this.widget.ancho,
       alto: this.widget.alto,
       hindText: this.widget.hindText,
       icono: this.widget.icono,
-      colorGradienteIconoInicio: estilo.colorPrimarioUno,
-      colorGradienteIconoFin: estilo.colorPrimarioUnoGradiente,
+      colorGradienteIconoInicio: this.widget.colorGradienteIconoInicio,
+      colorGradienteIconoFin: this.widget.colorGradienteIconoFin,
       enableInteractiveSelection: false,
       controller: this._controller,
       onTap: () {

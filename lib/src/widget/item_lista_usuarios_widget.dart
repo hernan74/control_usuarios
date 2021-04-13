@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:control_usuarios/src/pages/ficha_page.dart';
+import 'package:control_usuarios/src/widget/circulo_widget.dart';
 import 'package:control_usuarios/src/widget/trancicion_cambio_pagina_animation.dart';
 import 'package:control_usuarios/src/helpers/estilos.dart' as estilo;
 
@@ -30,12 +31,6 @@ class ItemListaUsuariosWidget extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: 5),
           width: size.width * 90 / 100,
           height: size.height * 14 / 100,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-                estilo.colorPrimarioDos.withOpacity(0.8),
-                estilo.colorPrimarioUno.withOpacity(0.8),
-              ]),
-              borderRadius: BorderRadius.circular(10)),
           child: Card(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -101,16 +96,20 @@ class _FotoUsuario extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
-        width: size.width * 24 / 100,
-        height: size.width * 28 / 100,
+        width: size.width * 23 / 100,
+        height: size.width * 23 / 100,
         alignment: Alignment.center,
         child: Hero(
           tag: this.tagHero,
           child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image(
-                image: AssetImage(this.fotoUrl),
-                fit: BoxFit.cover,
+              borderRadius: BorderRadius.circular(100),
+              child: CirculoWidget(
+                sizeCirculo: size.height * 17 / 100,
+                colorCiculo: Colors.white,
+                contenidoCirculo: Image(
+                  image: AssetImage(this.fotoUrl),
+                  fit: BoxFit.cover,
+                ),
               )),
         ));
   }

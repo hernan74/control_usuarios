@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:control_usuarios/src/widget/swich_list_tile_widget.dart';
-import 'package:control_usuarios/src/widget/expancion_panel_widget.dart';
-import 'package:control_usuarios/src/widget/textfield_widget.dart';
-import 'package:control_usuarios/src/widget/button_widget.dart';
-import 'package:control_usuarios/src/widget/circulo_widget.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:control_usuarios/src/helpers/estilos.dart' as estilo;
-import 'package:control_usuarios/src/helpers/modelo_ficha.dart';
-import 'package:control_usuarios/src/widget/fondo_formulario_widget.dart';
-import 'package:control_usuarios/src/widget/opacity_animation.dart';
-import 'package:control_usuarios/src/widget/selector_fecha_widget.dart';
-import 'package:control_usuarios/src/widget/snackbar_widget.dart';
+import 'package:control_usuarios/src/pages/historial_page.dart';
+import 'package:control_usuarios/src/helpers/import_helpers.dart';
 
 class FichaPageMod extends StatelessWidget {
   @override
@@ -30,7 +24,16 @@ class FichaPageMod extends StatelessWidget {
                   left: size.width * 4 / 100,
                   top: size.height * 5 / 100,
                   child: _CerrarVentana()),
-              Positioned(top: size.height * 25 / 100, child: _Formulario())
+              Positioned(
+                top: size.height * 19 / 100,
+                child: _TituloFormulario(
+                  size: size,
+                ),
+              ),
+              Positioned(
+                  top: size.height * 30 / 100,
+                  right: size.width * 3 / 100,
+                  child: _Formulario())
             ],
           ),
         ),
@@ -109,9 +112,6 @@ class _Formulario extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          _TituloFormulario(
-            size: size,
-          ),
           SizedBox(
             height: 10,
           ),
@@ -138,69 +138,59 @@ class _CamposFormulario extends StatelessWidget {
       child: MediaQuery.removePadding(
         context: context,
         removeTop: true,
-        child: ListView(
-          physics: BouncingScrollPhysics(),
-          children: <Widget>[
-            Column(
-              children: modeloficha
-                  .map((modelo) => Column(
-                        children: [
-                          if (modelo.tipoDato != 'date')
-                            TextfieldWidget(
-                                alineacionTexto: TextAlign.start,
-                                ancho: size.width * 85 / 100,
-                                hindText: modelo.titulo,
-                                icono: modelo.icono,
-                                colorGradienteIconoInicio:
-                                    estilo.colorPrimarioUno,
-                                colorGradienteIconoFin:
-                                    estilo.colorPrimarioUnoGradiente,
-                                textInputType: (modelo.tipoDato == 'String')
-                                    ? TextInputType.text
-                                    : TextInputType.number)
-                          else
-                            SelectorFechaWidget(
-                              ancho: size.width * 85 / 100,
-                              hindText: modelo.titulo,
-                              icono:modelo.icono,
-                            ),
-                          SizedBox(
-                            height: size.width * 5 / 100,
-                          ),
-                        ],
-                      ))
-                  .toList(),
-            ),
-            SwichListTile(
-              checkColor: estilo.colorPrimarioDos,
-              fondoCheckColor: estilo.colorPrimarioUno,
-              ancho: size.width * 80 / 100,
-              titulo: 'Es pensionado',
-            ),
-            SizedBox(
-              height: size.width * 5 / 100,
-            ),
-            ExpancionPanelWidget(
-              titulo: 'Motivos',
-              items: [
-                ItemExpancionPanelModel(
-                  titulo: 'Primer valor',
-                  valor: 'Primero',
+        child: Scrollbar(
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: ListView(
+              physics: BouncingScrollPhysics(),
+              children: <Widget>[
+                Column(
+                  children: modeloficha
+                      .map((modelo) => Column(
+                            children: [
+                              if (modelo.tipoDato != 'date')
+                                TextfieldWidget(
+                                    alineacionTexto: TextAlign.start,
+                                    ancho: size.width * 85 / 100,
+                                    hindText: modelo.titulo,
+                                    icono: modelo.icono,
+                                    colorGradienteIconoInicio:
+                                        estilo.colorPrimarioUno,
+                                    colorGradienteIconoFin:
+                                        estilo.colorPrimarioUnoGradiente,
+                                    textInputType: (modelo.tipoDato == 'String')
+                                        ? TextInputType.text
+                                        : TextInputType.number)
+                              else
+                                SelectorFechaWidget(
+                                  colorGradienteIconoInicio:
+                                      estilo.colorPrimarioUno,
+                                  colorGradienteIconoFin:
+                                      estilo.colorPrimarioUnoGradiente,
+                                  ancho: size.width * 85 / 100,
+                                  hindText: modelo.titulo,
+                                  icono: modelo.icono,
+                                ),
+                              SizedBox(
+                                height: size.width * 5 / 100,
+                              ),
+                            ],
+                          ))
+                      .toList(),
                 ),
-                ItemExpancionPanelModel(
-                  titulo: 'Segundo valor',
-                  valor: 'Segundo',
+                SwichListTile(
+                  checkColor: estilo.colorPrimarioDos,
+                  fondoCheckColor: estilo.colorPrimarioUno,
+                  ancho: size.width * 80 / 100,
+                  titulo: 'Es pensionado',
                 ),
-                ItemExpancionPanelModel(
-                  titulo: 'Tercer valor',
-                  valor: 'Tercero',
-                )
+                SizedBox(
+                  height: size.width * 5 / 100,
+                ),
+                _AdjuntarImagen(),
               ],
             ),
-            SizedBox(
-              height: size.width * 5 / 100,
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -253,11 +243,60 @@ class _TituloFormulario extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return OpacityAnimation(
       duration: Duration(seconds: 2),
       child: Container(
+        width: size.width * 90 / 100,
+        height: size.height * 12 / 100,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
           children: [
+            Spacer(),
+            GestureDetector(
+              child: Container(
+                width: size.width * 30 / 100,
+                height: size.height * 4 / 100,
+                child: Stack(
+                  alignment: Alignment.centerRight,
+                  children: [
+                    Positioned(
+                      left: size.width * 4 / 100,
+                      child: FaIcon(
+                        FontAwesomeIcons.history,
+                        color: Colors.pink,
+                      ),
+                    ),
+                    Hero(
+                      tag: 'TextHistorial',
+                      flightShuttleBuilder: (flightContext,
+                              animation,
+                              flightDirection,
+                              fromHeroContext,
+                              toHeroContext) =>
+                          FlightShuttleBuilderWidget(flightContext, animation,
+                              flightDirection, fromHeroContext, toHeroContext),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 25 / 100,
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          'Historial ',
+                          style: TextStyle(
+                              fontSize: estilo.sizeHindTextfield,
+                              color: estilo.colorTituloLogin,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              onTap: () {
+                Navigator.push(
+                    context, trancicionCambioPaginaAnimation(HistorialPage()));
+              },
+            ),
             Text(
               'Formulario',
               textAlign: TextAlign.right,
@@ -268,6 +307,28 @@ class _TituloFormulario extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _AdjuntarImagen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Column(
+      children: <Widget>[
+        Text(
+          'Adjuntar',
+          style: TextStyle(
+              fontSize: estilo.sizeText,
+              color: Colors.grey,
+              fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: size.width * 5 / 100,
+        ),
+        ListViewHorizontalWidget(),
+      ],
     );
   }
 }
