@@ -17,7 +17,9 @@ class HomePage extends StatelessWidget {
         children: [
           FondoHomeWidget(),
           Positioned(
-              top: size.height * 5 / 100, right: 0, child: _IconoAppBar()),
+              top: size.height * 5 / 100,
+              right: size.width * 2 / 100,
+              child: _IconoAppBar()),
           Positioned(
               top: size.height * 7 / 100,
               child: _Titulo(
@@ -28,7 +30,9 @@ class HomePage extends StatelessWidget {
             child: Container(
               width: size.width,
               height: size.height * 82 / 100,
-              child: _ListaUsuarios(),
+              child: _ListaUsuarios(
+                widthActual: size.width * 90 / 100,
+              ),
             ),
           ),
         ],
@@ -111,23 +115,25 @@ class _IconoAppBar extends StatelessWidget {
 }
 
 class _ListaUsuarios extends StatelessWidget {
-  const _ListaUsuarios({
-    Key key,
-  }) : super(key: key);
+  final double widthActual;
 
+  const _ListaUsuarios({this.widthActual});
   @override
   Widget build(BuildContext context) {
+    final widthItem = sizeScreemUtil(
+        sizeActual: MediaQuery.of(context).size.width * 90 / 100,
+        sizeMin: 150,
+        sizeMax: 350);
     return MediaQuery.removePadding(
       context: context,
       removeTop: true,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Scrollbar(
-          child: Padding(
-            padding: const EdgeInsets.only(right: 15),
-            child: ListView(
-              physics: BouncingScrollPhysics(),
-              children: listaUsuarios.map(
+      child: Scrollbar(
+        child: Padding(
+            padding: const EdgeInsets.only(right: 15, left: 15),
+            child: GridViewWidget(
+              widthItem: widthItem,
+              widthActual: this.widthActual,
+              listaElementos: listaUsuarios.map(
                 (usu) {
                   final key = UniqueKey();
                   return Dismissible(
@@ -138,13 +144,12 @@ class _ListaUsuarios extends StatelessWidget {
                       apyNom: usu.apyNom,
                       direccion: usu.direccion,
                       sincronizado: usu.sincronizado,
+                      widthActual: widthItem,
                     ),
                   );
                 },
               ).toList(),
-            ),
-          ),
-        ),
+            )),
       ),
     );
   }
@@ -153,12 +158,15 @@ class _ListaUsuarios extends StatelessWidget {
 class _BotonFlotante extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final size = sizeScreemUtil(
+        sizeActual: MediaQuery.of(context).size.width * 17 / 100,
+        sizeMin: 50,
+        sizeMax: 90);
     return Hero(
       tag: 'GuardarNuevo',
       child: ButtonWidget(
-        ancho: size.width * 17 / 100,
-        alto: size.width * 17 / 100,
+        ancho: size,
+        alto: size,
         colorGradienteInicio: estilo.colorPrimarioUno,
         colorGradienteFinal: estilo.colorPrimarioDos,
         widget: FaIcon(

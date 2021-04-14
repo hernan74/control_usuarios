@@ -15,8 +15,11 @@ export 'package:control_usuarios/src/widget/swich_list_tile_widget.dart';
 export 'package:control_usuarios/src/widget/textfield_widget.dart';
 export 'package:control_usuarios/src/widget/trancicion_cambio_pagina_animation.dart';
 export 'package:control_usuarios/src/widget/fondo_home_widget.dart';
-
+export 'package:control_usuarios/src/widget/grid_view_widget.dart';
 export 'package:control_usuarios/src/widget/item_lista_usuarios_widget.dart';
+
+export 'package:control_usuarios/src/utils/size_scream_util.dart';
+
 export 'package:control_usuarios/src/search/search_delegate.dart';
 
 export 'package:control_usuarios/src/helpers/modelo_ficha.dart';
