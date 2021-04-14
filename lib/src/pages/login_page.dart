@@ -1,3 +1,4 @@
+import 'package:control_usuarios/src/utils/size_scream_util.dart';
 import 'package:flutter/material.dart';
 
 import 'package:control_usuarios/src/helpers/import_helpers.dart';
@@ -9,7 +10,8 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    print(size.width);
+    double anchoMaximo = sizeScreemUtil(
+        sizeActual: size.width * 90 / 100, sizeMin: 400, sizeMax: 650);
     return SafeArea(
       child: Scaffold(
           body: SingleChildScrollView(
@@ -17,18 +19,31 @@ class LoginPage extends StatelessWidget {
           width: size.width,
           height: size.height,
           child: Stack(
-            alignment: Alignment.centerRight,
+            alignment: Alignment.center,
             children: [
               FondoLoginWidget(),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  _Titulo(),
-                  _FormularioLogin(),
-                  _TextoErrorAutenticacion(),
-                  _BotonLogin(size: size),
-                ],
+              Container(
+                width: anchoMaximo,
+                height: 400,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Spacer(),
+                    _Titulo(
+                      ancho: anchoMaximo,
+                    ),
+                    _FormularioLogin(
+                      anchoCampoTexto: anchoMaximo,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    _TextoErrorAutenticacion(),
+                    Spacer(),
+                    _BotonLogin(ancho: anchoMaximo),
+                  ],
+                ),
               ),
             ],
           ),
@@ -39,11 +54,16 @@ class LoginPage extends StatelessWidget {
 }
 
 class _Titulo extends StatelessWidget {
+  final double ancho;
+
+  const _Titulo({this.ancho});
   @override
   Widget build(BuildContext context) {
     return OpacityAnimation(
       duration: Duration(seconds: 1),
       child: Container(
+        width: ancho - 70,
+        alignment: Alignment.centerRight,
         child: Text(
           'Ingresar',
           style: TextStyle(
@@ -55,35 +75,33 @@ class _Titulo extends StatelessWidget {
 }
 
 class _FormularioLogin extends StatelessWidget {
+  final double anchoCampoTexto;
+
+  const _FormularioLogin({this.anchoCampoTexto});
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    return Container(
-      width: width - 60,
-      height: 140,
-      child: Column(
-        children: <Widget>[
-          TextfieldWidget(
-            ancho: width - 70,
-            icono: Icons.markunread_sharp,
-            colorGradienteIconoInicio: estilo.colorPrimarioUno,
-            colorGradienteIconoFin: estilo.colorPrimarioUnoGradiente,
-            hindText: 'Email',
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          TextfieldWidget(
-            ancho: width - 70,
-            iconoIzquida: true,
-            icono: Icons.vpn_key_sharp,
-            colorGradienteIconoInicio: estilo.colorPrimarioDos,
-            colorGradienteIconoFin: estilo.colorPrimarioDosGradiente,
-            hindText: 'Contraseña',
-            obscureText: true,
-          ),
-        ],
-      ),
+    return Column(
+      children: <Widget>[
+        TextfieldWidget(
+          ancho: anchoCampoTexto - 70,
+          icono: Icons.markunread_sharp,
+          colorGradienteIconoInicio: estilo.colorPrimarioUno,
+          colorGradienteIconoFin: estilo.colorPrimarioUnoGradiente,
+          hindText: 'Email',
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        TextfieldWidget(
+          ancho: anchoCampoTexto - 70,
+          iconoIzquida: true,
+          icono: Icons.vpn_key_sharp,
+          colorGradienteIconoInicio: estilo.colorPrimarioDos,
+          colorGradienteIconoFin: estilo.colorPrimarioDosGradiente,
+          hindText: 'Contraseña',
+          obscureText: true,
+        ),
+      ],
     );
   }
 }
@@ -103,10 +121,10 @@ class _TextoErrorAutenticacion extends StatelessWidget {
 
 class _BotonLogin extends StatelessWidget {
   const _BotonLogin({
-    @required this.size,
+    @required this.ancho,
   });
 
-  final Size size;
+  final double ancho;
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +134,7 @@ class _BotonLogin extends StatelessWidget {
               color: estilo.colorTextoBoton,
               fontWeight: FontWeight.bold,
               fontSize: estilo.sizeText)),
-      ancho: size.width - 60,
+      ancho: ancho - 100,
       alto: 50,
       utilizaGradiente: true,
       colorGradienteInicio: estilo.colorPrimarioDos,

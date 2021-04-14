@@ -38,51 +38,45 @@ class TextfieldWidget extends StatelessWidget {
       this.onTap});
   @override
   Widget build(BuildContext context) {
-    double actualizarAncho = this.ancho;
-    return MeasureSize(
-      onChange: (size) {
-        actualizarAncho = this.ancho;
-      },
-      child: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(50),
+      ),
+      child: Container(
+        width: this.ancho,
+        height: this.alto - 12,
+        decoration: BoxDecoration(
+          color: this.colorGradienteIconoInicio,
           borderRadius: BorderRadius.circular(50),
+          gradient: LinearGradient(colors: <Color>[
+            this.colorGradienteIconoFin,
+            this.colorGradienteIconoInicio.withOpacity(0.9),
+          ], stops: [
+            0.8,
+            1.0
+          ]),
         ),
-        child: Container(
-          width: actualizarAncho,
-          height: this.alto - 12,
-          decoration: BoxDecoration(
-            color: this.colorGradienteIconoInicio,
-            borderRadius: BorderRadius.circular(50),
-            gradient: LinearGradient(colors: <Color>[
-              this.colorGradienteIconoFin,
-              this.colorGradienteIconoInicio.withOpacity(0.9),
-            ], stops: [
-              0.8,
-              1.0
-            ]),
-          ),
-          child: Row(
-            children: <Widget>[
-              if (this.iconoIzquida)
-                _IconoTextfield(alto: this.alto, icono: this.icono),
-              CambioSizeAnimation(
-                  sizeFinal: actualizarAncho - 40,
-                  sizeIniciar: actualizarAncho,
-                  child: _CampoTexto(
-                    ancho: actualizarAncho,
-                    hindText: this.hindText,
-                    alineacionTexto: this.alineacionTexto,
-                    obscureText: this.obscureText,
-                    textInputType: this.textInputType,
-                    controller: this.controller,
-                    enableInteractiveSelection: this.enableInteractiveSelection,
-                    onTap: this.onTap,
-                  )),
-              if (!this.iconoIzquida)
-                _IconoTextfield(alto: this.alto, icono: this.icono),
-            ],
-          ),
+        child: Row(
+          children: <Widget>[
+            if (this.iconoIzquida)
+              _IconoTextfield(alto: this.alto, icono: this.icono),
+            CambioSizeAnimation(
+                sizeFinal: this.ancho - 40,
+                sizeIniciar: this.ancho,
+                child: _CampoTexto(
+                  ancho: this.ancho,
+                  hindText: this.hindText,
+                  alineacionTexto: this.alineacionTexto,
+                  obscureText: this.obscureText,
+                  textInputType: this.textInputType,
+                  controller: this.controller,
+                  enableInteractiveSelection: this.enableInteractiveSelection,
+                  onTap: this.onTap,
+                )),
+            if (!this.iconoIzquida)
+              _IconoTextfield(alto: this.alto, icono: this.icono),
+          ],
         ),
       ),
     );
