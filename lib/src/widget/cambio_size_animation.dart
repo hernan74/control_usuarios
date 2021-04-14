@@ -25,7 +25,6 @@ class _CambioSizeAnimationState extends State<CambioSizeAnimation>
         new AnimationController(vsync: this, duration: Duration(seconds: 1));
     size = Tween(begin: this.widget.sizeIniciar, end: this.widget.sizeFinal)
         .animate(this.controller);
-
     super.initState();
   }
 
@@ -42,7 +41,9 @@ class _CambioSizeAnimationState extends State<CambioSizeAnimation>
       animation: this.controller,
       builder: (BuildContext context, Widget child) {
         return Container(
-          width: this.size.value,
+          width: (this.size.value == this.widget.sizeFinal)
+              ? this.size.value
+              : this.widget.sizeFinal,
           child: this.widget.child,
         );
       },

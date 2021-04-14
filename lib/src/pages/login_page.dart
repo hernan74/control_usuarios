@@ -9,30 +9,32 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-        body: SingleChildScrollView(
-      child: Container(
-        width: size.width,
-        height: size.height,
-        child: Stack(
-          alignment: Alignment.topCenter,
-          children: [
-            FondoLoginWidget(),
-            Positioned(top: size.height * 40 / 100, child: _FormularioLogin()),
-            Positioned(
-                top: size.height * 30 / 100, right: 30, child: _Titulo()),
-            Positioned(
-              top: size.height * 70 / 100,
-              child: _BotonLogin(size: size),
-            ),
-            Positioned(
-              top: size.height * 58 / 100,
-              child: _TextoErrorAutenticacion(),
-            )
-          ],
+    print(size.width);
+    return SafeArea(
+      child: Scaffold(
+          body: SingleChildScrollView(
+        child: Container(
+          width: size.width,
+          height: size.height,
+          child: Stack(
+            alignment: Alignment.centerRight,
+            children: [
+              FondoLoginWidget(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  _Titulo(),
+                  _FormularioLogin(),
+                  _TextoErrorAutenticacion(),
+                  _BotonLogin(size: size),
+                ],
+              ),
+            ],
+          ),
         ),
-      ),
-    ));
+      )),
+    );
   }
 }
 
@@ -41,10 +43,12 @@ class _Titulo extends StatelessWidget {
   Widget build(BuildContext context) {
     return OpacityAnimation(
       duration: Duration(seconds: 1),
-      child: Text(
-        'Ingresar',
-        style: TextStyle(
-            fontSize: estilo.sizeTituloLogin, color: estilo.colorTituloLogin),
+      child: Container(
+        child: Text(
+          'Ingresar',
+          style: TextStyle(
+              fontSize: estilo.sizeTituloLogin, color: estilo.colorTituloLogin),
+        ),
       ),
     );
   }
