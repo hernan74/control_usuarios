@@ -1,4 +1,3 @@
-import 'package:control_usuarios/src/test/MeasureSize.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,8 +7,6 @@ import 'opacity_animation.dart';
 import 'package:control_usuarios/src/helpers/estilos.dart' as estilo;
 
 class TextfieldWidget extends StatelessWidget {
-  final double alto;
-  final double ancho;
   final IconData icono;
   final bool iconoIzquida;
   final Color colorGradienteIconoInicio;
@@ -23,9 +20,7 @@ class TextfieldWidget extends StatelessWidget {
   final Function onTap;
 
   const TextfieldWidget(
-      {this.alto = 60,
-      this.ancho = 250,
-      this.icono = Icons.ac_unit,
+      {this.icono = Icons.ac_unit,
       this.iconoIzquida = false,
       this.colorGradienteIconoInicio = Colors.grey,
       this.hindText = '',
@@ -39,17 +34,12 @@ class TextfieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext contextText) {
-    //Esto se hace para poder redibujar el tamaño del componente de forma correcta al ir agrandando la ventana en un navegador web
-    double redibujarAncho = this.ancho;
-    double redibujarAlto = this.alto;
-
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(50),
       ),
       child: Container(
-        width: redibujarAncho,
         decoration: BoxDecoration(
           color: this.colorGradienteIconoInicio,
           borderRadius: BorderRadius.circular(50),

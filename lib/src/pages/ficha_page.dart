@@ -141,7 +141,6 @@ class _CamposFormulario extends StatelessWidget {
                             TextfieldWidget(
                                 iconoIzquida: (modelo.indice % 2 != 0),
                                 alineacionTexto: TextAlign.start,
-                                ancho: size.width * 85 / 100,
                                 hindText: modelo.titulo,
                                 icono: modelo.icono,
                                 colorGradienteIconoInicio:
@@ -164,7 +163,6 @@ class _CamposFormulario extends StatelessWidget {
                                   ? estilo.colorPrimarioDosGradiente
                                   : estilo.colorPrimarioUnoGradiente,
                               iconoIzquida: modelo.indice % 2 != 0,
-                              ancho: size.width * 85 / 100,
                               hindText: modelo.titulo,
                               icono: modelo.icono,
                             ),

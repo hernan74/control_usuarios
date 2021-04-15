@@ -111,8 +111,6 @@ class _Formulario extends StatelessWidget {
           SelectorFechaWidget(
             colorGradienteIconoInicio: estilo.colorPrimarioUno,
             colorGradienteIconoFin: estilo.colorPrimarioUnoGradiente,
-            ancho: size.width * 86 / 100,
-            alto: size.height * 8 / 100,
             hindText: 'Fecha',
             icono: FontAwesomeIcons.calendarAlt,
           ),

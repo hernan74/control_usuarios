@@ -149,11 +149,6 @@ class _CamposFormulario extends StatelessWidget {
                 if (modelo.tipoDato == 'String' || modelo.tipoDato == 'number')
                   return TextfieldWidget(
                       alineacionTexto: TextAlign.start,
-                      alto: 11,
-                      ancho: sizeScreemUtil(
-                          sizeActual: size.width * 84 / 100,
-                          sizeMin: 350,
-                          sizeMax: 1199),
                       hindText: modelo.titulo,
                       icono: modelo.icono,
                       colorGradienteIconoInicio: estilo.colorPrimarioUno,
@@ -165,10 +160,6 @@ class _CamposFormulario extends StatelessWidget {
                   return SelectorFechaWidget(
                     colorGradienteIconoInicio: estilo.colorPrimarioUno,
                     colorGradienteIconoFin: estilo.colorPrimarioUnoGradiente,
-                    ancho: sizeScreemUtil(
-                        sizeActual: size.width * 84 / 100,
-                        sizeMin: 350,
-                        sizeMax: 600),
                     hindText: modelo.titulo,
                     icono: modelo.icono,
                   );

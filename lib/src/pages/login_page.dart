@@ -83,7 +83,6 @@ class _FormularioLogin extends StatelessWidget {
     return Column(
       children: <Widget>[
         TextfieldWidget(
-          ancho: anchoCampoTexto - 70,
           icono: Icons.markunread_sharp,
           colorGradienteIconoInicio: estilo.colorPrimarioUno,
           colorGradienteIconoFin: estilo.colorPrimarioUnoGradiente,
@@ -93,7 +92,6 @@ class _FormularioLogin extends StatelessWidget {
           height: 20,
         ),
         TextfieldWidget(
-          ancho: anchoCampoTexto - 70,
           iconoIzquida: true,
           icono: Icons.vpn_key_sharp,
           colorGradienteIconoInicio: estilo.colorPrimarioDos,

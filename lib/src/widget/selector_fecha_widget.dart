@@ -7,8 +7,6 @@ import 'package:control_usuarios/src/widget/textfield_widget.dart';
 class SelectorFechaWidget extends StatefulWidget {
   final IconData icono;
   final String hindText;
-  final double ancho;
-  final double alto;
   final String formatoFecha;
   final bool iconoIzquida;
   final Color colorGradienteIconoInicio;
@@ -17,8 +15,6 @@ class SelectorFechaWidget extends StatefulWidget {
   const SelectorFechaWidget(
       {this.icono = Icons.ac_unit,
       this.hindText = '',
-      this.ancho = 150,
-      this.alto = 60,
       this.formatoFecha = 'dd/MM/yyyy',
       this.iconoIzquida = false,
       this.colorGradienteIconoInicio = Colors.grey,
@@ -48,8 +44,6 @@ class _SelectorFechaWidgetState extends State<SelectorFechaWidget> {
     return TextfieldWidget(
       iconoIzquida: this.widget.iconoIzquida,
       alineacionTexto: TextAlign.start,
-      ancho: this.widget.ancho,
-      alto: this.widget.alto,
       hindText: this.widget.hindText,
       icono: this.widget.icono,
       colorGradienteIconoInicio: this.widget.colorGradienteIconoInicio,
