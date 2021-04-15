@@ -50,7 +50,6 @@ class TextfieldWidget extends StatelessWidget {
       ),
       child: Container(
         width: redibujarAncho,
-        height: redibujarAlto - 12,
         decoration: BoxDecoration(
           color: this.colorGradienteIconoInicio,
           borderRadius: BorderRadius.circular(50),
@@ -64,8 +63,7 @@ class TextfieldWidget extends StatelessWidget {
         ),
         child: Row(
           children: <Widget>[
-            if (this.iconoIzquida)
-              _IconoTextfield(alto: redibujarAlto, icono: this.icono),
+            if (this.iconoIzquida) _IconoTextfield(icono: this.icono),
             Expanded(
               child: _CampoTexto(
                 hindText: this.hindText,
@@ -77,8 +75,7 @@ class TextfieldWidget extends StatelessWidget {
                 onTap: this.onTap,
               ),
             ),
-            if (!this.iconoIzquida)
-              _IconoTextfield(alto: redibujarAlto, icono: this.icono),
+            if (!this.iconoIzquida) _IconoTextfield(icono: this.icono),
           ],
         ),
       ),
@@ -88,11 +85,9 @@ class TextfieldWidget extends StatelessWidget {
 
 class _IconoTextfield extends StatelessWidget {
   const _IconoTextfield({
-    @required this.alto,
     @required this.icono,
   });
 
-  final double alto;
   final IconData icono;
 
   @override
@@ -102,7 +97,6 @@ class _IconoTextfield extends StatelessWidget {
       sizeIniciar: 0,
       child: Container(
         width: 40,
-        height: this.alto,
         alignment: Alignment.center,
         child: OpacityAnimation(
           duration: Duration(milliseconds: 1300),

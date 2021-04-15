@@ -116,15 +116,7 @@ class _Formulario extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        SizedBox(
-          height: 10,
-        ),
-        _CamposFormulario(size: size),
-      ],
-    );
+    return _CamposFormulario(size: size);
   }
 }
 
@@ -157,6 +149,7 @@ class _CamposFormulario extends StatelessWidget {
                 if (modelo.tipoDato == 'String' || modelo.tipoDato == 'number')
                   return TextfieldWidget(
                       alineacionTexto: TextAlign.start,
+                      alto: 11,
                       ancho: sizeScreemUtil(
                           sizeActual: size.width * 84 / 100,
                           sizeMin: 350,
@@ -250,48 +243,38 @@ class _TituloFormulario extends StatelessWidget {
       child: Container(
         width: size.width * 90 / 100,
         height: size.height * 12 / 100,
+        padding: const EdgeInsets.only(right: (20)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Spacer(),
             GestureDetector(
-              child: Container(
-                width: size.width * 30 / 100,
-                height: size.height * 4 / 100,
-                child: Stack(
-                  alignment: Alignment.centerRight,
-                  children: [
-                    Positioned(
-                      left: size.width * 4 / 100,
-                      child: FaIcon(
-                        FontAwesomeIcons.history,
-                        color: Colors.pink,
-                      ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  FaIcon(
+                    FontAwesomeIcons.history,
+                    color: Colors.pink,
+                    size: size.height * 3 / 100,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Hero(
+                    tag: 'TextHistorial',
+                    flightShuttleBuilder: (flightContext, animation,
+                            flightDirection, fromHeroContext, toHeroContext) =>
+                        FlightShuttleBuilderWidget(flightContext, animation,
+                            flightDirection, fromHeroContext, toHeroContext),
+                    child: Text(
+                      'Historial ',
+                      style: TextStyle(
+                          fontSize: size.height * 3.5 / 100,
+                          color: estilo.colorTituloLogin,
+                          fontWeight: FontWeight.bold),
                     ),
-                    Hero(
-                      tag: 'TextHistorial',
-                      flightShuttleBuilder: (flightContext,
-                              animation,
-                              flightDirection,
-                              fromHeroContext,
-                              toHeroContext) =>
-                          FlightShuttleBuilderWidget(flightContext, animation,
-                              flightDirection, fromHeroContext, toHeroContext),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 25 / 100,
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          'Historial ',
-                          style: TextStyle(
-                              fontSize: estilo.sizeHindTextfield,
-                              color: estilo.colorTituloLogin,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
               onTap: () {
                 Navigator.push(
@@ -302,7 +285,7 @@ class _TituloFormulario extends StatelessWidget {
               'Formulario',
               textAlign: TextAlign.right,
               style: TextStyle(
-                  fontSize: estilo.sizeTituloLogin,
+                  fontSize: size.height * 4.5 / 100,
                   color: estilo.colorTituloLogin),
             ),
           ],
