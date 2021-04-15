@@ -10,6 +10,8 @@ double sizeScreemUtil(
 
   if (sizeActual < sizeMin)
     return sizeMin;
-  else
+  else if (sizeActual > sizeMax)
     return sizeMax;
+  else
+    return sizeActual;
 }

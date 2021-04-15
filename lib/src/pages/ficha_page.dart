@@ -179,7 +179,7 @@ class _CamposFormulario extends StatelessWidget {
               checkColor: estilo.colorPrimarioDos,
               fondoCheckColor: estilo.colorPrimarioUno,
               ancho: size.width * 80 / 100,
-              titulo: 'Es pensionado',
+              titulo: 'Tiene Estudios',
             ),
             SizedBox(
               height: size.width * 5 / 100,

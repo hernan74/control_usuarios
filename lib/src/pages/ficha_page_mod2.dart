@@ -16,7 +16,7 @@ class FichaPageMod extends StatelessWidget {
           width: size.width,
           height: size.height,
           child: Stack(
-            alignment: Alignment.topCenter,
+            alignment: Alignment.center,
             children: [
               FondoFormularioWidget(),
               _Cabecera(),
@@ -25,15 +25,25 @@ class FichaPageMod extends StatelessWidget {
                   top: size.height * 5 / 100,
                   child: _CerrarVentana()),
               Positioned(
-                top: size.height * 19 / 100,
-                child: _TituloFormulario(
-                  size: size,
+                left: size.width * 7 / 100,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    _TituloFormulario(
+                      size: size,
+                    ),
+                    _Formulario()
+                  ],
                 ),
               ),
               Positioned(
-                  top: size.height * 30 / 100,
-                  right: size.width * 3 / 100,
-                  child: _Formulario())
+                bottom: 57,
+                child: _AdjuntarImagen(),
+              ),
+              Positioned(
+                bottom: 10,
+                child: _BotonGuardarFormulario(size: size),
+              )
             ],
           ),
         ),
@@ -106,19 +116,14 @@ class _Formulario extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Container(
-      width: size.width * 90 / 100,
-      height: size.height * 74 / 100,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          SizedBox(
-            height: 10,
-          ),
-          _CamposFormulario(size: size),
-          _BotonGuardarFormulario(size: size),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        SizedBox(
+          height: 10,
+        ),
+        _CamposFormulario(size: size),
+      ],
     );
   }
 }
@@ -134,61 +139,57 @@ class _CamposFormulario extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: size.width * 90 / 100,
-      height: size.height * 56 / 100,
+      height: size.height * 38 / 100,
       child: MediaQuery.removePadding(
         context: context,
         removeTop: true,
         child: Scrollbar(
           child: Padding(
             padding: const EdgeInsets.only(right: 10),
-            child: ListView(
-              physics: BouncingScrollPhysics(),
-              children: <Widget>[
-                Column(
-                  children: modeloficha
-                      .map((modelo) => Column(
-                            children: [
-                              if (modelo.tipoDato != 'date')
-                                TextfieldWidget(
-                                    alineacionTexto: TextAlign.start,
-                                    ancho: size.width * 85 / 100,
-                                    hindText: modelo.titulo,
-                                    icono: modelo.icono,
-                                    colorGradienteIconoInicio:
-                                        estilo.colorPrimarioUno,
-                                    colorGradienteIconoFin:
-                                        estilo.colorPrimarioUnoGradiente,
-                                    textInputType: (modelo.tipoDato == 'String')
-                                        ? TextInputType.text
-                                        : TextInputType.number)
-                              else
-                                SelectorFechaWidget(
-                                  colorGradienteIconoInicio:
-                                      estilo.colorPrimarioUno,
-                                  colorGradienteIconoFin:
-                                      estilo.colorPrimarioUnoGradiente,
-                                  ancho: size.width * 85 / 100,
-                                  hindText: modelo.titulo,
-                                  icono: modelo.icono,
-                                ),
-                              SizedBox(
-                                height: size.width * 5 / 100,
-                              ),
-                            ],
-                          ))
-                      .toList(),
-                ),
-                SwichListTile(
-                  checkColor: estilo.colorPrimarioDos,
-                  fondoCheckColor: estilo.colorPrimarioUno,
-                  ancho: size.width * 80 / 100,
-                  titulo: 'Es pensionado',
-                ),
-                SizedBox(
-                  height: size.width * 5 / 100,
-                ),
-                _AdjuntarImagen(),
-              ],
+            child: GridViewWidget(
+              widthActual: size.width * 90 / 100,
+              widthItem: sizeScreemUtil(
+                  sizeActual: size.width * 84 / 100,
+                  sizeMin: 350,
+                  sizeMax: 600),
+              maxHeightItem: size.height * 9 / 100,
+              listaElementos: modeloficha.map((modelo) {
+                if (modelo.tipoDato == 'String' || modelo.tipoDato == 'number')
+                  return TextfieldWidget(
+                      alineacionTexto: TextAlign.start,
+                      ancho: sizeScreemUtil(
+                          sizeActual: size.width * 84 / 100,
+                          sizeMin: 350,
+                          sizeMax: 1199),
+                      hindText: modelo.titulo,
+                      icono: modelo.icono,
+                      colorGradienteIconoInicio: estilo.colorPrimarioUno,
+                      colorGradienteIconoFin: estilo.colorPrimarioUnoGradiente,
+                      textInputType: (modelo.tipoDato == 'String')
+                          ? TextInputType.text
+                          : TextInputType.number);
+                else if (modelo.tipoDato == 'date')
+                  return SelectorFechaWidget(
+                    colorGradienteIconoInicio: estilo.colorPrimarioUno,
+                    colorGradienteIconoFin: estilo.colorPrimarioUnoGradiente,
+                    ancho: sizeScreemUtil(
+                        sizeActual: size.width * 84 / 100,
+                        sizeMin: 350,
+                        sizeMax: 600),
+                    hindText: modelo.titulo,
+                    icono: modelo.icono,
+                  );
+                else
+                  return SwichListTile(
+                    checkColor: estilo.colorPrimarioDos,
+                    fondoCheckColor: estilo.colorPrimarioUno,
+                    ancho: sizeScreemUtil(
+                        sizeActual: size.width * 88 / 100,
+                        sizeMin: 360,
+                        sizeMax: 610),
+                    titulo: modelo.titulo,
+                  );
+              }).toList(),
             ),
           ),
         ),
@@ -315,20 +316,19 @@ class _AdjuntarImagen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Column(
-      children: <Widget>[
-        Text(
-          'Adjuntar',
-          style: TextStyle(
-              fontSize: estilo.sizeText,
-              color: Colors.grey,
-              fontWeight: FontWeight.bold),
-        ),
-        SizedBox(
-          height: size.width * 5 / 100,
-        ),
-        ListViewHorizontalWidget(),
-      ],
+    return Container(
+      height: size.height * 14 / 100,
+      width: size.width * 90 / 100,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Spacer(),
+          ListViewHorizontalWidget(
+            maxWidth: size.width * 84 / 100,
+            maxHeight: size.height * 13 / 100,
+          ),
+        ],
+      ),
     );
   }
 }

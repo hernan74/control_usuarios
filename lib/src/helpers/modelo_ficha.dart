@@ -16,4 +16,5 @@ List<Modeloficha> modeloficha = [
   Modeloficha(2, 'Direccion', FontAwesomeIcons.directions, 'String'),
   Modeloficha(3, 'Telefono', FontAwesomeIcons.phone, 'number'),
   Modeloficha(4, 'Fecha Nacimiento', FontAwesomeIcons.calendarAlt, 'date'),
+  Modeloficha(5, 'Es pensionado', null, 'bool'),
 ];

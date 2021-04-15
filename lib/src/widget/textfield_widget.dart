@@ -1,3 +1,4 @@
+import 'package:control_usuarios/src/test/MeasureSize.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -35,16 +36,21 @@ class TextfieldWidget extends StatelessWidget {
       this.controller,
       this.enableInteractiveSelection = true,
       this.onTap});
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext contextText) {
+    //Esto se hace para poder redibujar el tamaño del componente de forma correcta al ir agrandando la ventana en un navegador web
+    double redibujarAncho = this.ancho;
+    double redibujarAlto = this.alto;
+
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(50),
       ),
       child: Container(
-        width: this.ancho,
-        height: this.alto - 12,
+        width: redibujarAncho,
+        height: redibujarAlto - 12,
         decoration: BoxDecoration(
           color: this.colorGradienteIconoInicio,
           borderRadius: BorderRadius.circular(50),
@@ -59,22 +65,20 @@ class TextfieldWidget extends StatelessWidget {
         child: Row(
           children: <Widget>[
             if (this.iconoIzquida)
-              _IconoTextfield(alto: this.alto, icono: this.icono),
-            CambioSizeAnimation(
-                sizeFinal: this.ancho - 40,
-                sizeIniciar: this.ancho,
-                child: _CampoTexto(
-                  ancho: this.ancho,
-                  hindText: this.hindText,
-                  alineacionTexto: this.alineacionTexto,
-                  obscureText: this.obscureText,
-                  textInputType: this.textInputType,
-                  controller: this.controller,
-                  enableInteractiveSelection: this.enableInteractiveSelection,
-                  onTap: this.onTap,
-                )),
+              _IconoTextfield(alto: redibujarAlto, icono: this.icono),
+            Expanded(
+              child: _CampoTexto(
+                hindText: this.hindText,
+                alineacionTexto: this.alineacionTexto,
+                obscureText: this.obscureText,
+                textInputType: this.textInputType,
+                controller: this.controller,
+                enableInteractiveSelection: this.enableInteractiveSelection,
+                onTap: this.onTap,
+              ),
+            ),
             if (!this.iconoIzquida)
-              _IconoTextfield(alto: this.alto, icono: this.icono),
+              _IconoTextfield(alto: redibujarAlto, icono: this.icono),
           ],
         ),
       ),
@@ -114,7 +118,6 @@ class _IconoTextfield extends StatelessWidget {
 
 class _CampoTexto extends StatelessWidget {
   const _CampoTexto({
-    @required this.ancho,
     @required this.hindText,
     this.alineacionTexto,
     this.obscureText,
@@ -124,7 +127,6 @@ class _CampoTexto extends StatelessWidget {
     this.onTap,
   });
 
-  final double ancho;
   final String hindText;
   final TextAlign alineacionTexto;
   final bool obscureText;
@@ -136,7 +138,6 @@ class _CampoTexto extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         alignment: Alignment.center,
-        width: this.ancho - 40,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(50),
