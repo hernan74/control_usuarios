@@ -19,7 +19,7 @@ class FichaPageMod extends StatelessWidget {
             alignment: Alignment.center,
             children: [
               FondoFormularioWidget(),
-              _Cabecera(),
+              Positioned(top: size.height * 5 / 100, child: _Cabecera()),
               Positioned(
                   left: size.width * 4 / 100,
                   top: size.height * 5 / 100,
@@ -70,12 +70,11 @@ class _Cabecera extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Positioned(
-          top: size.height * 5 / 100,
-          child: Hero(
+    return Container(
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Hero(
             tag: 'juanito',
             child: ClipRRect(
               borderRadius: BorderRadius.circular(100),
@@ -89,10 +88,9 @@ class _Cabecera extends StatelessWidget {
               ),
             ),
           ),
-        ),
-        Positioned(
-            top: size.height * 18 / 100,
-            right: size.width * 30 / 100,
+          Positioned(
+            bottom: -5,
+            right: -10,
             child: ButtonWidget(
               alto: size.height * 4.5 / 100,
               ancho: size.height * 4.5 / 100,
@@ -104,8 +102,10 @@ class _Cabecera extends StatelessWidget {
                 size: size.height * 3.5 / 100,
               ),
               onPressed: () {},
-            ))
-      ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
@@ -204,8 +204,8 @@ class _BotonGuardarFormulario extends StatelessWidget {
                     color: estilo.colorTextoBoton,
                     fontWeight: FontWeight.bold,
                     fontSize: estilo.sizeText)),
-            ancho: size.width * 80 / 100,
-            alto: 50,
+            ancho: size.width * 60 / 100,
+            alto: size.height * 7 / 100,
             utilizaGradiente: true,
             colorGradienteInicio: estilo.colorPrimarioDos,
             colorGradienteFinal: estilo.colorPrimarioUno,
