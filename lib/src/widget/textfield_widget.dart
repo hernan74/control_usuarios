@@ -19,6 +19,7 @@ class TextfieldWidget extends StatelessWidget {
   final TextEditingController controller;
   final bool enableInteractiveSelection;
   final Function onTap;
+  final double alto;
   const TextfieldWidget(
       {this.icono = Icons.ac_unit,
       this.iconoIzquida = false,
@@ -31,7 +32,8 @@ class TextfieldWidget extends StatelessWidget {
       this.controller,
       this.enableInteractiveSelection = true,
       this.onTap,
-      this.hintTextSize = 22});
+      this.hintTextSize = 22,
+      this.alto = 55});
 
   @override
   Widget build(BuildContext contextText) {
@@ -41,6 +43,7 @@ class TextfieldWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
       ),
       child: Container(
+        height: this.alto,
         decoration: BoxDecoration(
           color: this.colorGradienteIconoInicio,
           borderRadius: BorderRadius.circular(50),

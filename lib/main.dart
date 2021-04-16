@@ -1,3 +1,4 @@
+import 'package:control_usuarios/src/helpers/estilos.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: Colors.white,
         primaryColor: Colors.amber,
+        accentColor: colorPrimarioUno
       ),
       home: LoginPage(),
     );

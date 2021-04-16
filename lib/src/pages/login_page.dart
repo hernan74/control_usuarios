@@ -12,41 +12,55 @@ class LoginPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     double anchoMaximo = sizeScreemUtil(
         sizeActual: size.width * 90 / 100, sizeMin: 400, sizeMax: 650);
+    double altoMaximo = sizeScreemUtil(
+        sizeActual: size.height * 60 / 100, sizeMin: 252, sizeMax: 400);
+
     return SafeArea(
       child: Scaffold(
-          body: SingleChildScrollView(
-        child: Container(
-          width: size.width,
-          height: size.height,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              FondoLoginWidget(),
-              Container(
-                width: anchoMaximo,
-                height: 400,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Spacer(),
-                    _Titulo(
-                      ancho: anchoMaximo,
-                    ),
-                    _FormularioLogin(
-                      anchoCampoTexto: anchoMaximo,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    _TextoErrorAutenticacion(),
-                    Spacer(),
-                    _BotonLogin(ancho: anchoMaximo),
-                  ],
-                ),
+          body: Container(
+        width: size.width,
+        height: size.height,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            FondoLoginWidget(),
+            Container(
+              width: anchoMaximo,
+              height: altoMaximo,
+              child: GridViewWidget(
+                widthActual: anchoMaximo,
+                widthItem: anchoMaximo - 20,
+                maxHeightItem: altoMaximo,
+                listaElementos: [
+                  Column(
+                    children: <Widget>[
+                      Spacer(),
+                      _Titulo(
+                        anchoMaximo: anchoMaximo,
+                        altoMaximo: altoMaximo,
+                      ),
+                      _FormularioLogin(
+                        altoMaximo: altoMaximo,
+                      ),
+                      SizedBox(
+                          height: sizeScreemUtil(
+                              sizeActual: altoMaximo * 5 / 100,
+                              sizeMin: 0,
+                              sizeMax: 20)),
+                      _TextoErrorAutenticacion(
+                        altoMaximo: altoMaximo,
+                      ),
+                      Spacer(),
+                      _BotonLogin(
+                        anchoMaximo: anchoMaximo,
+                        altoMaximo: altoMaximo,
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       )),
     );
@@ -54,20 +68,23 @@ class LoginPage extends StatelessWidget {
 }
 
 class _Titulo extends StatelessWidget {
-  final double ancho;
+  final double anchoMaximo;
+  final double altoMaximo;
 
-  const _Titulo({this.ancho});
+  const _Titulo({@required this.anchoMaximo, @required this.altoMaximo});
   @override
   Widget build(BuildContext context) {
     return OpacityAnimation(
       duration: Duration(seconds: 1),
       child: Container(
-        width: ancho - 70,
+        width: anchoMaximo * 95 / 100,
         alignment: Alignment.centerRight,
         child: Text(
           'Ingresar',
           style: TextStyle(
-              fontSize: estilo.sizeTituloLogin, color: estilo.colorTituloLogin),
+              fontSize: sizeScreemUtil(
+                  sizeActual: altoMaximo * 10 / 100, sizeMin: 20, sizeMax: 40),
+              color: estilo.colorTituloLogin),
         ),
       ),
     );
@@ -75,28 +92,37 @@ class _Titulo extends StatelessWidget {
 }
 
 class _FormularioLogin extends StatelessWidget {
-  final double anchoCampoTexto;
+  final double altoMaximo;
 
-  const _FormularioLogin({this.anchoCampoTexto});
+  const _FormularioLogin({this.altoMaximo});
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         TextfieldWidget(
+          alto: sizeScreemUtil(
+              sizeActual: altoMaximo * 15 / 100, sizeMin: 10, sizeMax: 55),
           icono: Icons.markunread_sharp,
           colorGradienteIconoInicio: estilo.colorPrimarioUno,
           colorGradienteIconoFin: estilo.colorPrimarioUnoGradiente,
+          hintTextSize: sizeScreemUtil(
+              sizeActual: altoMaximo * 5.5 / 100, sizeMin: 10, sizeMax: 22),
           hindText: 'Email',
         ),
         SizedBox(
-          height: 20,
+          height: sizeScreemUtil(
+              sizeActual: altoMaximo * 4.5 / 100, sizeMin: 10, sizeMax: 20),
         ),
         TextfieldWidget(
+          alto: sizeScreemUtil(
+              sizeActual: altoMaximo * 15 / 100, sizeMin: 10, sizeMax: 55),
           iconoIzquida: true,
           icono: Icons.vpn_key_sharp,
           colorGradienteIconoInicio: estilo.colorPrimarioDos,
           colorGradienteIconoFin: estilo.colorPrimarioDosGradiente,
           hindText: 'Contraseña',
+          hintTextSize: sizeScreemUtil(
+              sizeActual: altoMaximo * 5.5 / 100, sizeMin: 10, sizeMax: 22),
           obscureText: true,
         ),
       ],
@@ -105,12 +131,17 @@ class _FormularioLogin extends StatelessWidget {
 }
 
 class _TextoErrorAutenticacion extends StatelessWidget {
+  final double altoMaximo;
+
+  const _TextoErrorAutenticacion({Key key, @required this.altoMaximo})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Text(
       'Contraseña incorrecta',
       style: TextStyle(
-          fontSize: estilo.sizeTextError,
+          fontSize: sizeScreemUtil(
+              sizeActual: altoMaximo * 4.8 / 100, sizeMin: 10, sizeMax: 22),
           color: estilo.colorError,
           fontWeight: FontWeight.bold),
     );
@@ -119,10 +150,12 @@ class _TextoErrorAutenticacion extends StatelessWidget {
 
 class _BotonLogin extends StatelessWidget {
   const _BotonLogin({
-    @required this.ancho,
+    @required this.anchoMaximo,
+    @required this.altoMaximo,
   });
 
-  final double ancho;
+  final double anchoMaximo;
+  final double altoMaximo;
 
   @override
   Widget build(BuildContext context) {
@@ -131,9 +164,12 @@ class _BotonLogin extends StatelessWidget {
           style: TextStyle(
               color: estilo.colorTextoBoton,
               fontWeight: FontWeight.bold,
-              fontSize: estilo.sizeText)),
-      ancho: ancho - 100,
-      alto: 50,
+              fontSize: sizeScreemUtil(
+                  sizeActual: altoMaximo * 5.5 / 100,
+                  sizeMin: 10,
+                  sizeMax: 22))),
+      ancho: anchoMaximo * 70 / 100,
+      alto: altoMaximo * 12 / 100,
       utilizaGradiente: true,
       colorGradienteInicio: estilo.colorPrimarioDos,
       colorGradienteFinal: estilo.colorPrimarioUno,
