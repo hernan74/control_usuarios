@@ -19,6 +19,7 @@ class ListViewHorizontalWidget extends StatefulWidget {
 }
 
 class _ListViewHorizontalWidgetState extends State<ListViewHorizontalWidget> {
+  //TODO esto se debe modificar cuando este BLoc
   List<Widget> listaElementos = [];
   double widthActual = 0;
   @override
@@ -52,6 +53,7 @@ class _ListViewHorizontalWidgetState extends State<ListViewHorizontalWidget> {
                       listaElementos: this
                           .listaElementos
                           .map((i) => _ItemLista(
+                                altoMaximo: this.widget.maxHeight,
                                 image: i,
                               ))
                           .toList()),
@@ -101,14 +103,63 @@ class _ListViewHorizontalWidgetState extends State<ListViewHorizontalWidget> {
 
 class _ItemLista extends StatelessWidget {
   final Widget image;
-
-  const _ItemLista({this.image});
+  final double altoMaximo;
+  const _ItemLista({this.image, @required this.altoMaximo});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.red,
-      padding: EdgeInsets.symmetric(horizontal: 5),
-      child: ClipRRect(borderRadius: BorderRadius.circular(10), child: image),
+    return GestureDetector(
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(width: 1, color: estilo.colorPrimarioUno)),
+        padding: EdgeInsets.symmetric(horizontal: 5),
+        child: Stack(alignment: Alignment.center, children: [
+          ClipRRect(borderRadius: BorderRadius.circular(10), child: image),
+          Positioned(
+              top: 0,
+              right: 0,
+              child: CirculoWidget(
+                utilizaShadow: false,
+                colorCiculo: estilo.colorPrimarioUno,
+                contenidoCirculo: Icon(
+                  Icons.delete_outline,
+                  color: Colors.white,
+                  size: sizeScreemUtil(
+                      sizeActual: altoMaximo * 27 / 100,
+                      sizeMin: 10,
+                      sizeMax: 50),
+                ),
+                sizeCirculo: sizeScreemUtil(
+                    sizeActual: altoMaximo * 27 / 100,
+                    sizeMin: 10,
+                    sizeMax: 50),
+              ))
+        ]),
+      ),
+      onTap: () async {
+        //TODO Terminar esto cuando se implemente Bloc
+        await showDialog(
+            context: context,
+            builder: (_) => ImageDialog(
+                  image: this.image,
+                ));
+      },
+    );
+  }
+}
+
+class ImageDialog extends StatelessWidget {
+  final Widget image;
+
+  const ImageDialog({this.image});
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: Container(
+        width: 200,
+        height: 200,
+        child: image,
+      ),
     );
   }
 }

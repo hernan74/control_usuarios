@@ -11,23 +11,25 @@ class HistorialPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      body: Container(
-        width: size.width,
-        height: size.height,
-        child: Stack(
-          alignment: Alignment.topCenter,
-          children: [
-            FondoLoginWidget(),
-            Positioned(
-                left: size.width * 4 / 100,
-                top: size.height * 5 / 100,
-                child: _AppBar()),
-            Positioned(
-              top: size.height * 10 / 100,
-              child: _Body(),
-            )
-          ],
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          width: size.width,
+          height: size.height,
+          child: Stack(
+            alignment: Alignment.topCenter,
+            children: [
+              FondoLoginWidget(),
+              Positioned(
+                  left: size.width * 4 / 100,
+                  top: size.height * 5 / 100,
+                  child: _AppBar()),
+              Positioned(
+                top: size.height * 10 / 100,
+                child: _Body(),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -118,7 +120,7 @@ class _Formulario extends StatelessWidget {
             colorGradienteIconoInicio: estilo.colorPrimarioUno,
             colorGradienteIconoFin: estilo.colorPrimarioUnoGradiente,
             alto: sizeScreemUtil(
-                sizeActual: size.height * 9 / 100, sizeMin: 40, sizeMax: 60),
+                sizeActual: size.height * 9 / 100, sizeMin: 50, sizeMax: 60),
             hindText: 'Fecha',
             hintTextSize: sizeScreemUtil(
                 sizeActual: size.height * 3 / 100, sizeMin: 22, sizeMax: 25),
@@ -129,7 +131,7 @@ class _Formulario extends StatelessWidget {
             hintTextSize: sizeScreemUtil(
                 sizeActual: size.height * 3 / 100, sizeMin: 22, sizeMax: 25),
             alto: sizeScreemUtil(
-                sizeActual: size.height * 9 / 100, sizeMin: 40, sizeMax: 60),
+                sizeActual: size.height * 9 / 100, sizeMin: 50, sizeMax: 60),
             titulo: 'Motivos',
             items: [
               ItemExpancionPanelModel(

@@ -12,35 +12,37 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          FondoHomeWidget(),
-          Positioned(
-              top: sizeScreemUtil(
-                  sizeActual: size.height * 5 / 100, sizeMin: 0, sizeMax: 40),
-              right: size.width * 2 / 100,
-              child: _IconoAppBar()),
-          Positioned(
-              top: sizeScreemUtil(
-                  sizeActual: size.height * 7 / 100, sizeMin: 0, sizeMax: 54),
-              child: _Titulo(
-                cantRegistros: listaUsuarios.length,
-              )),
-          Positioned(
-            top: size.height * 19 / 100,
-            child: Container(
-              width: size.width,
-              height: size.height * 82 / 100,
-              child: _ListaUsuarios(
-                widthActual: size.width * 90 / 100,
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          alignment: Alignment.center,
+          children: [
+            FondoHomeWidget(),
+            Positioned(
+                top: sizeScreemUtil(
+                    sizeActual: size.height * 5 / 100, sizeMin: 0, sizeMax: 40),
+                right: size.width * 2 / 100,
+                child: _IconoAppBar()),
+            Positioned(
+                top: sizeScreemUtil(
+                    sizeActual: size.height * 7 / 100, sizeMin: 0, sizeMax: 54),
+                child: _Titulo(
+                  cantRegistros: listaUsuarios.length,
+                )),
+            Positioned(
+              top: size.height * 19 / 100,
+              child: Container(
+                width: size.width,
+                height: size.height * 82 / 100,
+                child: _ListaUsuarios(
+                  widthActual: size.width * 90 / 100,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
+        floatingActionButton: _BotonFlotante(),
       ),
-      floatingActionButton: _BotonFlotante(),
     );
   }
 }

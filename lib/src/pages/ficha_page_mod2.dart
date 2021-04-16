@@ -10,41 +10,43 @@ class FichaPageMod extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          width: size.width,
-          height: size.height,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              FondoFormularioWidget(),
-              Positioned(top: size.height * 5 / 100, child: _Cabecera()),
-              Positioned(
-                  left: size.width * 4 / 100,
-                  top: size.height * 5 / 100,
-                  child: _CerrarVentana()),
-              Positioned(
-                left: size.width * 7 / 100,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    _TituloFormulario(
-                      size: size,
-                    ),
-                    _Formulario()
-                  ],
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Container(
+            width: size.width,
+            height: size.height,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                FondoFormularioWidget(),
+                Positioned(top: size.height * 5 / 100, child: _Cabecera()),
+                Positioned(
+                    left: size.width * 4 / 100,
+                    top: size.height * 5 / 100,
+                    child: _CerrarVentana()),
+                Positioned(
+                  left: size.width * 7 / 100,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      _TituloFormulario(
+                        size: size,
+                      ),
+                      _Formulario()
+                    ],
+                  ),
                 ),
-              ),
-              Positioned(
-                bottom: 57,
-                child: _AdjuntarImagen(),
-              ),
-              Positioned(
-                bottom: 10,
-                child: _BotonGuardarFormulario(size: size),
-              )
-            ],
+                Positioned(
+                  bottom: 57,
+                  child: _AdjuntarImagen(),
+                ),
+                Positioned(
+                  bottom: 15,
+                  child: _BotonGuardarFormulario(size: size),
+                )
+              ],
+            ),
           ),
         ),
       ),
