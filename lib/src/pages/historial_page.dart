@@ -220,7 +220,7 @@ class _ListaHistorial extends StatelessWidget {
                           sizeActual: size.width * 90 / 100,
                           sizeMin: 100,
                           sizeMax: 350),
-                      widthActual: size.width * 90 / 100,
+                      maxWidth: size.width * 90 / 100,
                       listaElementos: listaHistorial,
                     ),
                   ),

@@ -17,6 +17,7 @@ export 'package:control_usuarios/src/widget/trancicion_cambio_pagina_animation.d
 export 'package:control_usuarios/src/widget/fondo_home_widget.dart';
 export 'package:control_usuarios/src/widget/grid_view_widget.dart';
 export 'package:control_usuarios/src/widget/item_lista_usuarios_widget.dart';
+export 'package:control_usuarios/src/widget/image_picker_future_widget.dart';
 
 export 'package:control_usuarios/src/utils/size_scream_util.dart';
 

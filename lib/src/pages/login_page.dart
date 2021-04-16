@@ -28,7 +28,7 @@ class LoginPage extends StatelessWidget {
               width: anchoMaximo,
               height: altoMaximo,
               child: GridViewWidget(
-                widthActual: anchoMaximo,
+                maxWidth: anchoMaximo,
                 widthItem: anchoMaximo - 20,
                 maxHeightItem: altoMaximo,
                 listaElementos: [

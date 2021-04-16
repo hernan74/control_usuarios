@@ -139,7 +139,7 @@ class _CamposFormulario extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(right: 10),
             child: GridViewWidget(
-              widthActual: size.width * 90 / 100,
+              maxWidth: size.width * 90 / 100,
               widthItem: sizeScreemUtil(
                   sizeActual: size.width * 84 / 100,
                   sizeMin: 350,
@@ -204,8 +204,10 @@ class _BotonGuardarFormulario extends StatelessWidget {
                     color: estilo.colorTextoBoton,
                     fontWeight: FontWeight.bold,
                     fontSize: estilo.sizeText)),
-            ancho: size.width * 60 / 100,
-            alto: size.height * 7 / 100,
+            ancho: sizeScreemUtil(
+                sizeActual: size.width * 60 / 100, sizeMin: 100, sizeMax: 300),
+            alto: sizeScreemUtil(
+                sizeActual: size.height * 7 / 100, sizeMin: 30, sizeMax: 90),
             utilizaGradiente: true,
             colorGradienteInicio: estilo.colorPrimarioDos,
             colorGradienteFinal: estilo.colorPrimarioUno,
@@ -291,17 +293,12 @@ class _AdjuntarImagen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
-      height: size.height * 14 / 100,
+      height: size.height * 13 / 100,
       width: size.width * 90 / 100,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Spacer(),
-          ListViewHorizontalWidget(
-            maxWidth: size.width * 84 / 100,
-            maxHeight: size.height * 13 / 100,
-          ),
-        ],
+      alignment: Alignment.center,
+      child: ListViewHorizontalWidget(
+        maxWidth: size.width * 87 / 100,
+        maxHeight: size.height * 13 / 100,
       ),
     );
   }

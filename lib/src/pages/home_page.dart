@@ -145,7 +145,7 @@ class _ListaUsuarios extends StatelessWidget {
                   sizeActual: size.width * 90 / 100,
                   sizeMin: 150,
                   sizeMax: 350),
-              widthActual: this.widthActual,
+              maxWidth: this.widthActual,
               listaElementos: listaUsuarios.map(
                 (usu) {
                   final key = UniqueKey();
