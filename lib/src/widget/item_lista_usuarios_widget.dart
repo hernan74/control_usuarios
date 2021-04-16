@@ -14,21 +14,20 @@ class ItemListaUsuariosWidget extends StatelessWidget {
   final bool sincronizado;
   final String fotoUrl;
   final String tagHero;
-  final double widthActual;
 
-  const ItemListaUsuariosWidget(
-      {@required this.apyNom,
-      @required this.direccion,
-      @required this.sincronizado,
-      this.fotoUrl,
-      @required this.tagHero,
-      this.widthActual});
+  const ItemListaUsuariosWidget({
+    @required this.apyNom,
+    @required this.direccion,
+    @required this.sincronizado,
+    this.fotoUrl,
+    @required this.tagHero,
+  });
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final maxHeight = sizeScreemUtil(
-        sizeActual: size.height * 14 / 100, sizeMin: 100, sizeMax: 110);
+        sizeActual: size.height * 22 / 100, sizeMin: 80, sizeMax: 160);
     return GestureDetector(
       onTap: () =>
           Navigator.push(context, trancicionCambioPaginaAnimation(FichaPage())),
@@ -45,17 +44,20 @@ class ItemListaUsuariosWidget extends StatelessWidget {
                 _FotoUsuario(
                   fotoUrl: this.fotoUrl,
                   tagHero: this.tagHero,
-                  width: widthActual * 25 / 100,
+                  width: sizeScreemUtil(
+                      sizeActual: size.height * 16 / 100,
+                      sizeMin: 50,
+                      sizeMax: 110),
                 ),
                 SizedBox(
                   width: 5,
                 ),
-                _InformacionUsuario(
-                  apyNom: this.apyNom,
-                  direccion: this.direccion,
-                  maxWidth: widthActual * 68 / 100,
+                Expanded(
+                  child: _InformacionUsuario(
+                    apyNom: this.apyNom,
+                    direccion: this.direccion,
+                  ),
                 ),
-                Spacer(),
                 _IconosDerecha(
                   sincronizado: this.sincronizado,
                   sizeContenedor: maxHeight,
@@ -82,13 +84,17 @@ class _IconosDerecha extends StatelessWidget {
               this.sincronizado ? Icons.cloud_done_outlined : Icons.cloud_off,
               color: this.sincronizado ? Colors.greenAccent : Colors.redAccent,
               size: sizeScreemUtil(
-                  sizeActual: sizeContenedor, sizeMin: 20, sizeMax: 30),
+                  sizeActual: sizeContenedor * 25 / 100,
+                  sizeMin: 1,
+                  sizeMax: 30),
             ),
             Spacer(),
             FaIcon(
               Icons.chevron_right_outlined,
               size: sizeScreemUtil(
-                  sizeActual: sizeContenedor, sizeMin: 20, sizeMax: 40),
+                  sizeActual: sizeContenedor * 25 / 100,
+                  sizeMin: 1,
+                  sizeMax: 40),
               color: Colors.grey,
             ),
           ],
@@ -126,13 +132,12 @@ class _FotoUsuario extends StatelessWidget {
 class _InformacionUsuario extends StatelessWidget {
   final String apyNom;
   final String direccion;
-  final double maxWidth;
 
-  const _InformacionUsuario({this.apyNom, this.direccion, this.maxWidth});
+  const _InformacionUsuario({this.apyNom, this.direccion});
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Container(
-      width: maxWidth,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -142,14 +147,19 @@ class _InformacionUsuario extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
             style: TextStyle(
-                fontSize: estilo.sizeText, fontWeight: FontWeight.bold),
+                fontSize: sizeScreemUtil(
+                    sizeActual: size.height * 3 / 100,
+                    sizeMin: 12,
+                    sizeMax: 21),
+                fontWeight: FontWeight.bold),
           ),
           Text(
             direccion,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
             style: TextStyle(
-              fontSize: estilo.sizeHindTextfield,
+              fontSize: sizeScreemUtil(
+                  sizeActual: size.height * 3 / 100, sizeMin: 12, sizeMax: 21),
               color: Colors.grey,
             ),
           ),

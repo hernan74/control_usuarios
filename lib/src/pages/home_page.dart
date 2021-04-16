@@ -11,17 +11,20 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
         children: [
           FondoHomeWidget(),
           Positioned(
-              top: size.height * 5 / 100,
+              top: sizeScreemUtil(
+                  sizeActual: size.height * 5 / 100, sizeMin: 0, sizeMax: 40),
               right: size.width * 2 / 100,
               child: _IconoAppBar()),
           Positioned(
-              top: size.height * 7 / 100,
+              top: sizeScreemUtil(
+                  sizeActual: size.height * 7 / 100, sizeMin: 0, sizeMax: 54),
               child: _Titulo(
                 cantRegistros: listaUsuarios.length,
               )),
@@ -57,26 +60,32 @@ class _Titulo extends StatelessWidget {
               'Usuarios',
               textAlign: TextAlign.right,
               style: TextStyle(
-                  fontSize: 26,
+                  fontSize: sizeScreemUtil(
+                      sizeActual: size.height * 5 / 100,
+                      sizeMin: 14,
+                      sizeMax: 26),
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: size.height * 1 / 100,
             ),
             RichText(
                 text: TextSpan(children: [
               TextSpan(
                 text: 'Nro. Usuarios: ',
                 style: TextStyle(
-                  fontSize: 13,
+                  fontSize: sizeScreemUtil(
+                      sizeActual: size.height * 2 / 100,
+                      sizeMin: 8,
+                      sizeMax: 13),
                   color: Colors.white,
                 ),
               ),
               TextSpan(
                 text: '$cantRegistros',
                 style: TextStyle(
-                    fontSize: 13,
+                    fontSize: sizeScreemUtil(
+                        sizeActual: size.height * 2 / 100,
+                        sizeMin: 8,
+                        sizeMax: 13),
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
               ),
@@ -120,10 +129,7 @@ class _ListaUsuarios extends StatelessWidget {
   const _ListaUsuarios({this.widthActual});
   @override
   Widget build(BuildContext context) {
-    final widthItem = sizeScreemUtil(
-        sizeActual: MediaQuery.of(context).size.width * 90 / 100,
-        sizeMin: 150,
-        sizeMax: 350);
+    final size = MediaQuery.of(context).size * 90 / 100;
     return MediaQuery.removePadding(
       context: context,
       removeTop: true,
@@ -131,7 +137,14 @@ class _ListaUsuarios extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.only(right: 15, left: 15),
             child: GridViewWidget(
-              widthItem: widthItem,
+              maxHeightItem: sizeScreemUtil(
+                  sizeActual: size.height * 22 / 100,
+                  sizeMin: 80,
+                  sizeMax: 130),
+              widthItem: sizeScreemUtil(
+                  sizeActual: size.width * 90 / 100,
+                  sizeMin: 150,
+                  sizeMax: 350),
               widthActual: this.widthActual,
               listaElementos: listaUsuarios.map(
                 (usu) {
@@ -144,7 +157,6 @@ class _ListaUsuarios extends StatelessWidget {
                       apyNom: usu.apyNom,
                       direccion: usu.direccion,
                       sincronizado: usu.sincronizado,
-                      widthActual: widthItem,
                     ),
                   );
                 },
@@ -159,9 +171,9 @@ class _BotonFlotante extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = sizeScreemUtil(
-        sizeActual: MediaQuery.of(context).size.width * 17 / 100,
-        sizeMin: 50,
-        sizeMax: 90);
+        sizeActual: MediaQuery.of(context).size.height * 17 / 100,
+        sizeMin: 40,
+        sizeMax: 80);
     return Hero(
       tag: 'GuardarNuevo',
       child: ButtonWidget(
