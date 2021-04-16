@@ -12,13 +12,13 @@ class TextfieldWidget extends StatelessWidget {
   final Color colorGradienteIconoInicio;
   final Color colorGradienteIconoFin;
   final String hindText;
+  final double hintTextSize;
   final TextAlign alineacionTexto;
   final bool obscureText;
   final TextInputType textInputType;
   final TextEditingController controller;
   final bool enableInteractiveSelection;
   final Function onTap;
-
   const TextfieldWidget(
       {this.icono = Icons.ac_unit,
       this.iconoIzquida = false,
@@ -30,7 +30,8 @@ class TextfieldWidget extends StatelessWidget {
       this.textInputType = TextInputType.text,
       this.controller,
       this.enableInteractiveSelection = true,
-      this.onTap});
+      this.onTap,
+      this.hintTextSize = 22});
 
   @override
   Widget build(BuildContext contextText) {
@@ -63,6 +64,7 @@ class TextfieldWidget extends StatelessWidget {
                 controller: this.controller,
                 enableInteractiveSelection: this.enableInteractiveSelection,
                 onTap: this.onTap,
+                hintTextSize: this.hintTextSize,
               ),
             ),
             if (!this.iconoIzquida) _IconoTextfield(icono: this.icono),
@@ -109,9 +111,11 @@ class _CampoTexto extends StatelessWidget {
     this.controller,
     this.enableInteractiveSelection,
     this.onTap,
+    this.hintTextSize,
   });
 
   final String hindText;
+  final double hintTextSize;
   final TextAlign alineacionTexto;
   final bool obscureText;
   final TextInputType textInputType;
@@ -140,7 +144,7 @@ class _CampoTexto extends StatelessWidget {
           decoration: new InputDecoration(
             hintText: this.hindText,
             hintStyle: TextStyle(
-                fontSize: estilo.sizeText,
+                fontSize: this.hintTextSize,
                 fontWeight: FontWeight.bold,
                 color: Colors.grey),
             border: InputBorder.none,

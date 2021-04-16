@@ -1,3 +1,4 @@
+import 'package:control_usuarios/src/helpers/import_helpers.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -27,15 +28,18 @@ class ItemListaHistorial extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(
-            width: size.width * 2 / 100,
+            width: sizeScreemUtil(
+                sizeActual: size.width * 2 / 100, sizeMin: 5, sizeMax: 15),
           ),
           FaIcon(
             FontAwesomeIcons.history,
             color: estilo.colorPrimarioUno,
-            size: size.width * 9 / 100,
+            size: sizeScreemUtil(
+                sizeActual: size.width * 9 / 100, sizeMin: 10, sizeMax: 50),
           ),
           SizedBox(
-            width: size.width * 2 / 100,
+            width: sizeScreemUtil(
+                sizeActual: size.width * 2 / 100, sizeMin: 5, sizeMax: 15),
           ),
           Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -51,15 +55,17 @@ class ItemListaHistorial extends StatelessWidget {
               ]),
           Spacer(),
           Container(
-            height: size.height * 9 / 100,
+            height: double.infinity,
             child: FaIcon(
               this.sincronizado ? Icons.cloud_done_outlined : Icons.cloud_off,
               color: this.sincronizado ? Colors.greenAccent : Colors.redAccent,
-              size: size.width * 5 / 100,
+              size: sizeScreemUtil(
+                  sizeActual: size.width * 5 / 100, sizeMin: 7, sizeMax: 25),
             ),
           ),
           SizedBox(
-            width: size.width * 2 / 100,
+            width: sizeScreemUtil(
+                sizeActual: size.width * 2 / 100, sizeMin: 5, sizeMax: 15),
           ),
         ],
       ),

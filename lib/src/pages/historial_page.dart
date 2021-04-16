@@ -74,7 +74,10 @@ class _AppBar extends StatelessWidget {
               icon: Icon(
                 Icons.arrow_back,
                 color: Colors.white,
-                size: size.height * 5 / 100,
+                size: sizeScreemUtil(
+                    sizeActual: size.height * 5 / 100,
+                    sizeMin: 10,
+                    sizeMax: 40),
               ),
               onPressed: () => Navigator.pop(context),
             ),
@@ -84,7 +87,10 @@ class _AppBar extends StatelessWidget {
             child: Text(
               'Nuevo Motivo',
               style: TextStyle(
-                  fontSize: 22,
+                  fontSize: sizeScreemUtil(
+                      sizeActual: size.height * 3 / 100,
+                      sizeMin: 10,
+                      sizeMax: 22),
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
             ),
@@ -111,11 +117,19 @@ class _Formulario extends StatelessWidget {
           SelectorFechaWidget(
             colorGradienteIconoInicio: estilo.colorPrimarioUno,
             colorGradienteIconoFin: estilo.colorPrimarioUnoGradiente,
+            alto: sizeScreemUtil(
+                sizeActual: size.height * 9 / 100, sizeMin: 40, sizeMax: 60),
             hindText: 'Fecha',
+            hintTextSize: sizeScreemUtil(
+                sizeActual: size.height * 3 / 100, sizeMin: 22, sizeMax: 25),
             icono: FontAwesomeIcons.calendarAlt,
           ),
-          ExpancionPanelWidget(
+          DropdownWidget(
             ancho: size.width * 90 / 100,
+            hintTextSize: sizeScreemUtil(
+                sizeActual: size.height * 3 / 100, sizeMin: 22, sizeMax: 25),
+            alto: sizeScreemUtil(
+                sizeActual: size.height * 9 / 100, sizeMin: 40, sizeMax: 60),
             titulo: 'Motivos',
             items: [
               ItemExpancionPanelModel(
@@ -144,8 +158,7 @@ class _BotonGuardarFormulario extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.only(top: size.height * 0.04),
-      width: size.width * 0.95,
+      padding: EdgeInsets.only(top: size.height * 0.02),
       alignment: Alignment.centerRight,
       child: Hero(
         tag: 'GuardarNuevo',
@@ -155,8 +168,10 @@ class _BotonGuardarFormulario extends StatelessWidget {
                   color: estilo.colorTextoBoton,
                   fontWeight: FontWeight.bold,
                   fontSize: estilo.sizeText)),
-          ancho: size.width * 40 / 100,
-          alto: 50,
+          ancho: sizeScreemUtil(
+              sizeActual: size.width * 35 / 100, sizeMin: 90, sizeMax: 200),
+          alto: sizeScreemUtil(
+              sizeActual: size.height * 6 / 100, sizeMin: 30, sizeMax: 45),
           utilizaGradiente: true,
           colorGradienteInicio: estilo.colorPrimarioDos,
           colorGradienteFinal: estilo.colorPrimarioUno,
@@ -176,12 +191,15 @@ class _ListaHistorial extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Container(
         width: size.width * 90 / 100,
-        height: size.height * 51 / 100,
+        height: size.height * 55 / 100,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            _CabeceraListaHistorial(
-              cantRegistros: listaHistorial.length,
+            Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: _CabeceraListaHistorial(
+                cantRegistros: listaHistorial.length,
+              ),
             ),
             SizedBox(
               height: size.height * 3 / 100,
@@ -193,9 +211,17 @@ class _ListaHistorial extends StatelessWidget {
                 child: Scrollbar(
                   child: Padding(
                     padding: const EdgeInsets.only(right: 15),
-                    child: ListView(
-                      physics: BouncingScrollPhysics(),
-                      children: listaHistorial,
+                    child: GridViewWidget(
+                      maxHeightItem: sizeScreemUtil(
+                          sizeActual: size.height * 15 / 100,
+                          sizeMin: 90,
+                          sizeMax: 200),
+                      widthItem: sizeScreemUtil(
+                          sizeActual: size.width * 90 / 100,
+                          sizeMin: 100,
+                          sizeMax: 350),
+                      widthActual: size.width * 90 / 100,
+                      listaElementos: listaHistorial,
                     ),
                   ),
                 ),
@@ -212,48 +238,50 @@ class _CabeceraListaHistorial extends StatelessWidget {
   const _CabeceraListaHistorial({@required this.cantRegistros});
   @override
   Widget build(BuildContext context) {
-    return Row(
+    final size = MediaQuery.of(context).size;
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Spacer(),
-        Column(
-          children: [
-            Hero(
-              tag: 'TextHistorial',
-              flightShuttleBuilder: (flightContext, animation, flightDirection,
-                      fromHeroContext, toHeroContext) =>
-                  FlightShuttleBuilderWidget(flightContext, animation,
-                      flightDirection, fromHeroContext, toHeroContext),
-              child: Container(
-                width: MediaQuery.of(context).size.width * 25 / 100,
-                child: Text(
-                  'Historial',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                      fontSize: 25,
-                      color: estilo.colorTituloLogin,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            RichText(
-                text: TextSpan(children: [
-              TextSpan(
-                text: 'Cant. de registros: ',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: estilo.colorTituloLogin,
-                ),
-              ),
-              TextSpan(
-                text: '$cantRegistros',
-                style: TextStyle(
-                    fontSize: 13,
-                    color: estilo.colorTituloLogin,
-                    fontWeight: FontWeight.bold),
-              ),
-            ]))
-          ],
+        Hero(
+          tag: 'TextHistorial',
+          flightShuttleBuilder: (flightContext, animation, flightDirection,
+                  fromHeroContext, toHeroContext) =>
+              FlightShuttleBuilderWidget(flightContext, animation,
+                  flightDirection, fromHeroContext, toHeroContext),
+          child: Text(
+            'Historial',
+            textAlign: TextAlign.right,
+            style: TextStyle(
+                fontSize: sizeScreemUtil(
+                    sizeActual: size.height * 3.5 / 100,
+                    sizeMin: 18,
+                    sizeMax: 30),
+                color: estilo.colorTituloLogin,
+                fontWeight: FontWeight.bold),
+          ),
         ),
+        RichText(
+            text: TextSpan(children: [
+          TextSpan(
+            text: 'Cant. de registros: ',
+            style: TextStyle(
+              fontSize: sizeScreemUtil(
+                  sizeActual: size.height * 2 / 100, sizeMin: 10, sizeMax: 30),
+              color: estilo.colorTituloLogin,
+            ),
+          ),
+          TextSpan(
+            text: '$cantRegistros',
+            style: TextStyle(
+                fontSize: sizeScreemUtil(
+                    sizeActual: size.height * 2 / 100,
+                    sizeMin: 10,
+                    sizeMax: 30),
+                color: estilo.colorTituloLogin,
+                fontWeight: FontWeight.bold),
+          ),
+        ]))
       ],
     );
   }

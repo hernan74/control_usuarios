@@ -2,32 +2,33 @@ import 'package:flutter/material.dart';
 
 import 'package:control_usuarios/src/helpers/estilos.dart' as estilo;
 
-class ExpancionPanelWidget extends StatefulWidget {
+class DropdownWidget extends StatefulWidget {
   final String titulo;
   final List<ItemExpancionPanelModel> items;
   final double ancho;
   final double alto;
+  final double hintTextSize;
 
-  const ExpancionPanelWidget({
+  const DropdownWidget({
     @required this.titulo,
     @required this.items,
     this.ancho = 200,
-    this.alto = 30,
+    this.alto = 60,
+    this.hintTextSize = 22,
   });
 
   @override
-  _ExpancionPanelWidgetState createState() => _ExpancionPanelWidgetState();
+  _DropdownWidgetState createState() => _DropdownWidgetState();
 }
 
-class _ExpancionPanelWidgetState extends State<ExpancionPanelWidget> {
+class _DropdownWidgetState extends State<DropdownWidget> {
   String seleccion = '';
   bool isExpanded = false;
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Container(
       width: this.widget.ancho,
-      padding: const EdgeInsets.symmetric(horizontal: 5),
+      height: this.widget.alto,
       child: Card(
         elevation: 4,
         shape: RoundedRectangleBorder(
@@ -35,36 +36,32 @@ class _ExpancionPanelWidgetState extends State<ExpancionPanelWidget> {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(50),
-          child: ExpansionPanelList(
-            expansionCallback: (int index, bool isExpanded) {
-              setState(() {
-                this.isExpanded = !isExpanded;
-              });
-            },
-            children: [
-              ExpansionPanel(
-                canTapOnHeader: true,
-                body: Column(children: [
-                  _ItemExpancionPanel(
-                    items: this.widget.items,
-                  )
-                ]),
-                isExpanded: this.isExpanded,
-                headerBuilder: (BuildContext context, bool isExpanded) {
-                  return Container(
-                    padding: EdgeInsets.only(
-                        top: size.height * 1.2 / 100,
-                        left: size.width * 3.4 / 100),
-                    height: 10,
-                    child: Text(widget.titulo,
-                        style: TextStyle(
-                            fontSize: estilo.sizeText,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey)),
-                  );
-                },
-              )
-            ],
+          child: ListTile(
+            title: Text(
+              '${this.widget.titulo}',
+              style: TextStyle(
+                fontSize: this.widget.hintTextSize,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey,
+              ),
+            ),
+            trailing: DropdownButtonHideUnderline(
+              child: DropdownButton(
+                  onChanged: (value) {
+                    setState(() {
+                      seleccion = value;
+                    });
+                  },
+                  items: this
+                      .widget
+                      .items
+                      .map((e) => DropdownMenuItem(
+                            child: Text(e.titulo),
+                            value: e.valor,
+                          ))
+                      .toList(),
+                  hint: Text(seleccion ?? 'no tiene valor')),
+            ),
           ),
         ),
       ),

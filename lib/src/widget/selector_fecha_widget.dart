@@ -11,6 +11,8 @@ class SelectorFechaWidget extends StatefulWidget {
   final bool iconoIzquida;
   final Color colorGradienteIconoInicio;
   final Color colorGradienteIconoFin;
+  final double alto;
+  final double hintTextSize;
 
   const SelectorFechaWidget(
       {this.icono = Icons.ac_unit,
@@ -18,7 +20,9 @@ class SelectorFechaWidget extends StatefulWidget {
       this.formatoFecha = 'dd/MM/yyyy',
       this.iconoIzquida = false,
       this.colorGradienteIconoInicio = Colors.grey,
-      this.colorGradienteIconoFin = Colors.grey});
+      this.colorGradienteIconoFin = Colors.grey,
+      this.alto = 60,
+      this.hintTextSize = 22});
 
   @override
   _SelectorFechaWidgetState createState() => _SelectorFechaWidgetState();
@@ -41,19 +45,23 @@ class _SelectorFechaWidgetState extends State<SelectorFechaWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return TextfieldWidget(
-      iconoIzquida: this.widget.iconoIzquida,
-      alineacionTexto: TextAlign.start,
-      hindText: this.widget.hindText,
-      icono: this.widget.icono,
-      colorGradienteIconoInicio: this.widget.colorGradienteIconoInicio,
-      colorGradienteIconoFin: this.widget.colorGradienteIconoFin,
-      enableInteractiveSelection: false,
-      controller: this._controller,
-      onTap: () {
-        FocusScope.of(context).requestFocus(new FocusNode());
-        _mostrarSelectorFecha(context, this.widget.formatoFecha);
-      },
+    return Container(
+      height: this.widget.alto,
+      child: TextfieldWidget(
+        iconoIzquida: this.widget.iconoIzquida,
+        alineacionTexto: TextAlign.start,
+        hindText: this.widget.hindText,
+        icono: this.widget.icono,
+        colorGradienteIconoInicio: this.widget.colorGradienteIconoInicio,
+        colorGradienteIconoFin: this.widget.colorGradienteIconoFin,
+        enableInteractiveSelection: false,
+        controller: this._controller,
+        hintTextSize: this.widget.hintTextSize,
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+          _mostrarSelectorFecha(context, this.widget.formatoFecha);
+        },
+      ),
     );
   }
 

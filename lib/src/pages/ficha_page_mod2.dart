@@ -143,7 +143,7 @@ class _CamposFormulario extends StatelessWidget {
               widthItem: sizeScreemUtil(
                   sizeActual: size.width * 84 / 100,
                   sizeMin: 350,
-                  sizeMax: 600),
+                  sizeMax: 500),
               maxHeightItem: size.height * 9 / 100,
               listaElementos: modeloficha.map((modelo) {
                 if (modelo.tipoDato == 'String' || modelo.tipoDato == 'number')

@@ -1,7 +1,7 @@
 export 'package:control_usuarios/src/helpers/motivos_historial.dart';
 export 'package:control_usuarios/src/widget/fondo_login_widget.dart';
 export 'package:control_usuarios/src/widget/item_lista_historial.dart';
-export 'package:control_usuarios/src/widget/expancion_panel_widget.dart';
+export 'package:control_usuarios/src/widget/dropdown_widget.dart';
 export 'package:control_usuarios/src/widget/selector_fecha_widget.dart';
 export 'package:control_usuarios/src/widget/button_widget.dart';
 export 'package:control_usuarios/src/widget/flight_shuttle_builder_widget.dart';
