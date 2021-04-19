@@ -80,7 +80,7 @@ class _Titulo extends StatelessWidget {
         width: anchoMaximo * 95 / 100,
         alignment: Alignment.centerRight,
         child: Text(
-          'Deploy',
+          'Ingresar',
           style: TextStyle(
               fontSize: sizeScreemUtil(
                   sizeActual: altoMaximo * 10 / 100, sizeMin: 20, sizeMax: 40),
