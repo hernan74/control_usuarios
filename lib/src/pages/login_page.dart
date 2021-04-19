@@ -1,9 +1,9 @@
-import 'package:control_usuarios/src/utils/size_scream_util.dart';
 import 'package:flutter/material.dart';
 
 import 'package:control_usuarios/src/helpers/import_helpers.dart';
 
 import 'package:control_usuarios/src/pages/home_page.dart';
+import 'package:control_usuarios/src/utils/size_scream_util.dart';
 import 'package:control_usuarios/src/helpers/estilos.dart' as estilo;
 
 class LoginPage extends StatelessWidget {
