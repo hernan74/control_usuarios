@@ -2,7 +2,7 @@ name: Firebase Hosting Continuous Deployment
 
 on:
   push:
-    branches: [ master ]
+    branches: [ deploy ]
 
 jobs:
   build:
