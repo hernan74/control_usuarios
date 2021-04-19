@@ -1,8 +1,8 @@
-import 'package:control_usuarios/src/helpers/import_helpers.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:control_usuarios/src/helpers/import_helpers.dart';
 import 'package:control_usuarios/src/helpers/estilos.dart' as estilo;
 
 class ItemListaHistorial extends StatelessWidget {

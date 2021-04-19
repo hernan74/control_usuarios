@@ -1,4 +1,3 @@
-import 'package:control_usuarios/src/utils/size_scream_util.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -6,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:control_usuarios/src/pages/ficha_page.dart';
 import 'package:control_usuarios/src/widget/circulo_widget.dart';
 import 'package:control_usuarios/src/widget/trancicion_cambio_pagina_animation.dart';
-import 'package:control_usuarios/src/helpers/estilos.dart' as estilo;
+import 'package:control_usuarios/src/utils/size_scream_util.dart';
 
 class ItemListaUsuariosWidget extends StatelessWidget {
   final String apyNom;
